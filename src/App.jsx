@@ -1,10 +1,9 @@
 import "./index.css";
-
+import SignUp from "./Page.jsx/SignUp";
 function App() {
   return (
-    <div>
-      <p className="color-red-500">guy</p>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+    <div className="bg-white ">
+      <SignUp />
     </div>
   );
 }
