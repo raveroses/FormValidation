@@ -1,8 +1,8 @@
 export default function Body() {
   return (
-    <div className="w-full flex gap-20 mt-[10px]">
-      <div className="w-[45%] p-25 ">
-        <h2 className="font-bold text-[34px] tracking-widest text-left">
+    <div className="w-full gap-20 p-10 md:m-auto md:mt-[10px] md:flex">
+      <div className="md:w-[45%] md:p-25 ">
+        <h2 className="font-bold text-[34px] text-left md:tracking-widest">
           Explore the world to experience the beauty of nature
         </h2>
         <p className="text-left text-[14px] text-gray-400">
@@ -30,13 +30,26 @@ export default function Body() {
           <div className="text-[14px] text-gray-500">OR</div>
           <div className="w-[150px] bg-gray-300 h-[2px]"></div>
         </div>
+        <div className="flex justify-center mt-[30px] ">
+          {" "}
+          <button
+            type="submit"
+            className="bg-black text-white text-center w-full p-[6px] rounded-2xl text-[13px] "
+          >
+            Sign up with email
+          </button>
+        </div>
+        <p className="text-[12px] text-center mt-[10px]">
+          By creating an account, you agree to the Terms of use and Privacy
+          Policy.
+        </p>
       </div>
 
-      <div className="second-content w-[50%]">
+      <div className="second-content w-[50%] hidden md:block ">
         <img
           src="/images/Historic.jpg"
           alt="bus-image"
-          className="w-[600px] h-[550px]"
+          className="w-[600px] h-[650px] "
         />
       </div>
     </div>
