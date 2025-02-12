@@ -1,7 +1,7 @@
 import { FaCaretDown, FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 
-export default function Login() {
+export default function SignUp() {
   return (
     <div className="flex flex-col justify-center w-full p-2 md:p-0">
       <div className="text-center ">

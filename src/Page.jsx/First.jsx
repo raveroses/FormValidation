@@ -1,10 +1,10 @@
 import Header from "../Components/Header";
 import Body from "../Components/Body";
-export default function SignUp() {
+export default function First({ GoogleSignUp, FacebookSign }) {
   return (
     <>
       <Header />
-      <Body />
+      <Body GoogleSignUp={GoogleSignUp} FacebookSign={FacebookSign} />
     </>
   );
 }

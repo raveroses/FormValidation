@@ -1,4 +1,4 @@
-export default function Body() {
+export default function Body({ GoogleSignUp, FacebookSign }) {
   return (
     <div className="w-full gap-20 p-10 md:m-auto md:mt-[10px] md:flex">
       <div className="md:w-[45%] md:p-25 ">
@@ -13,11 +13,17 @@ export default function Body() {
           adipisicing elit Blanditiis, error!
         </p>
 
-        <div className="flex gap-10 justify-center border-1 rounded-2xl p-1 mt-8">
+        <div
+          className="flex gap-10 justify-center border-1 rounded-2xl p-1 mt-8"
+          onClick={GoogleSignUp}
+        >
           <img src="/images/google.png" alt="" className="w-[25px] " />{" "}
           <p className="text-semi-bold">Continue with Google</p>
         </div>
-        <div className="flex gap-4 justify-center border-1 rounded-2xl p-1 mt-3">
+        <div
+          className="flex gap-4 justify-center border-1 rounded-2xl p-1 mt-3"
+          onClick={FacebookSign}
+        >
           <img src="/images/FACEBOOK.png" alt="" className="w-[25px] " />{" "}
           <p className="text-semi-bold pl-4">Continue with Facebook</p>
         </div>
