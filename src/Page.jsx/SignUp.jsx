@@ -1,7 +1,168 @@
+import { useState } from "react";
 import { FaCaretDown, FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 
 export default function SignUp() {
+  const [userDetail, setUserDetail] = useState(() => {
+    const user = localStorage.getItem("details");
+    return user
+      ? JSON.parse(user)
+      : {
+          profileName: "",
+          phoneNumber: "",
+          email: "",
+          password: "",
+          day: "",
+          month: "",
+          year: "",
+        };
+  });
+
+  const handleValidation = () => {
+    if (
+      !userDetail.profileName ||
+      !userDetail.phoneNumber ||
+      !userDetail.email ||
+      !userDetail.password ||
+      !userDetail.day ||
+      !userDetail.month ||
+      !userDetail.year
+    ) {
+      alert("Please fill all the required field");
+      return;
+    }
+    return true;
+  };
+
+  const handleSubmission = () => {
+    if (handleValidation()) {
+      alert("all set");
+    }
+  };
+  const [passwordToggling, setPasswordToggling] = useState(false);
+  const passwordToggle = () => {
+    setPasswordToggling((prev) => !prev);
+  };
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetail((prev) => {
+      const userSaved = { ...prev, [name]: value };
+      localStorage.setItem("details", JSON.stringify(userSaved));
+      return userSaved;
+    });
+  };
+
+  const [gender, setGender] = useState(() => {
+    const save = localStorage.getItem("gender");
+    return save ? JSON.parse(save) : "";
+  });
+  const handleToggling = (e) => {
+    setGender(() => {
+      const save = e.target.value;
+      localStorage.setItem("gender", JSON.stringify(save));
+      return save;
+    });
+  };
+  const [arrow, setArrow] = useState({
+    dayArrow: false,
+    monthArrow: false,
+    yearArrow: false,
+  });
+
+  console.log(arrow);
+  const dayArrows = () => {
+    setArrow((prev) => ({
+      ...prev,
+      dayArrow: true,
+      monthArrow: false,
+      yearArrow: false,
+    }));
+  };
+  const monthArrows = () => {
+    setArrow((prev) => ({
+      ...prev,
+      monthArrow: true,
+      dayArrow: false,
+      yearArrow: false,
+    }));
+  };
+  const yearArrows = () => {
+    setArrow((prev) => ({
+      ...prev,
+      yearArrow: true,
+      monthArrow: false,
+      dayArrow: false,
+    }));
+  };
+
+  const monthsListing = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const handleDate = (i) => {
+    setUserDetail((prev) => {
+      const saver = { ...prev, day: i };
+      localStorage.setItem("details", JSON.stringify(saver));
+      return saver;
+    });
+  };
+  const handleMonth = (i) => {
+    setUserDetail((prev) => {
+      const saver = { ...prev, month: i };
+      localStorage.setItem("details", JSON.stringify(saver));
+      return saver;
+    });
+  };
+
+  const handleYear = (i) => {
+    setUserDetail((prev) => {
+      const saver = { ...prev, year: i };
+      localStorage.setItem("details", JSON.stringify(saver));
+      return saver;
+    });
+  };
+
+  const date = Array.from({ length: 31 }, (_, i) => {
+    return (
+      <li
+        key={i + 1}
+        className="hover:bg-gray-500"
+        onClick={() => handleDate(i + 1)}
+      >
+        {i + 1}
+      </li>
+    );
+  });
+  const years = Array.from({ length: 2025 + 1 }, (_, i) => {
+    return (
+      <li key={i} className="hover:bg-gray-500" onClick={() => handleYear(i)}>
+        {i}
+      </li>
+    );
+  });
+  const month = monthsListing.map((item, i) => {
+    return (
+      <li
+        key={i}
+        className="hover:bg-gray-500 mb-[2px]"
+        onClick={() => handleMonth(item)}
+      >
+        {item}
+      </li>
+    );
+  });
+
   return (
     <div className="flex flex-col justify-center w-full p-2 md:p-0">
       <div className="text-center ">
@@ -12,7 +173,7 @@ export default function SignUp() {
         </p>
       </div>
 
-      <form className="flex flex-col m-auto">
+      <form className="flex flex-col m-auto" onSubmit={handleSubmission}>
         <label htmlFor="name" className="mb-1 text-semi-bold text-gray-600">
           Profile name
         </label>
@@ -21,6 +182,9 @@ export default function SignUp() {
           id="name"
           className="w-[95%] p-2 mb-3 border border-gray-500 rounded placeholder:font-semi-bold m-w-full md:w-[450px] "
           placeholder="Enter your profile name"
+          name="profileName"
+          value={userDetail?.profileName}
+          onChange={onChange}
         />
 
         <label htmlFor="phone" className="mb-1 text-semi-bold text-gray-600">
@@ -31,6 +195,9 @@ export default function SignUp() {
           id="phone"
           className="w-[95%] p-2 mb-3 border border-gray-500 rounded placeholder:font-semi-bold m-w-full md:w-[450px]"
           placeholder="Enter your profile number"
+          name="phoneNumber"
+          value={userDetail?.phoneNumber}
+          onChange={onChange}
         />
         <label htmlFor="password" className="mb-1 text-semi-bold text-gray-600">
           Email
@@ -40,8 +207,11 @@ export default function SignUp() {
           id="email"
           className="w-[95%] p-2 mb-3 border border-gray-500 rounded placeholder:font-semi-bold m-w-full md:w-[450px]"
           placeholder="Enter your profile email"
+          name="email"
+          value={userDetail?.email}
+          onChange={onChange}
         />
-        <div className="flex justify-between m-w-full md:justify-start md:gap-77">
+        <div className="w-full flex justify-start gap-[280px] items-center md:justify-start md:gap-[360px] ">
           <label
             htmlFor="password"
             className="mb-1 text-semi-bold text-gray-600"
@@ -50,23 +220,35 @@ export default function SignUp() {
           </label>
 
           <div className="flex ">
-            <IoEyeSharp />
-            <FaEyeSlash />
-            <div>Hide</div>
+            {passwordToggling ? (
+              <IoEyeSharp onClick={passwordToggle} />
+            ) : (
+              <FaEyeSlash onClick={passwordToggle} />
+            )}
           </div>
         </div>
         <input
-          type="password"
+          type={passwordToggling ? "text" : "password"}
           id="password"
           className="w-[95%] p-2 mb-3 border border-gray-500 rounded placeholder:font-semi-bold m-w-full md:w-[450px]"
           placeholder="Enter your profile Password"
+          name="password"
+          value={userDetail?.password}
+          onChange={onChange}
         />
 
         <div>
           <h3 className="mb-1 text-semi-bold text-gray-600">
             What's your gender?
           </h3>
-          <input type="radio" name="" id="male" className="mr-2" />
+          <input
+            type="radio"
+            id="male"
+            className="mr-2"
+            value="Male"
+            checked={gender === "Male"}
+            onChange={handleToggling}
+          />
           <label
             htmlFor="male"
             className="mb-1 text-semi-bold text-gray-600 mr-10"
@@ -74,7 +256,15 @@ export default function SignUp() {
             Male
           </label>
 
-          <input type="radio" name="" id="female" className="mr-2" />
+          <input
+            type="radio"
+            name=""
+            id="female"
+            className="mr-2"
+            value="Female"
+            checked={gender === "Female"}
+            onChange={handleToggling}
+          />
           <label
             htmlFor="female"
             className="mb-1 text-semi-bold text-gray-600 mr-10"
@@ -82,7 +272,15 @@ export default function SignUp() {
             Female
           </label>
 
-          <input type="radio" name="" id="binary" className="mr-2" />
+          <input
+            type="radio"
+            name=""
+            id="binary"
+            className="mr-2"
+            value="Binary"
+            checked={gender === "Binary"}
+            onChange={handleToggling}
+          />
           <label
             htmlFor="binary"
             className="mb-1 text-semi-bold text-gray-600 mr-10"
@@ -93,26 +291,48 @@ export default function SignUp() {
 
         {/* DATE OF BIRTH */}
         <div className="flex gap-3">
-          <div>
+          <div className="relative">
             <p className="text-gray-500">Day</p>
-            <div className="flex gap-15 items-center border border-gray-400 p-1 roundedtext-gray-500 md:gap-25">
-              <p className="text-gray-500">34</p>
-              <FaCaretDown className="text-gray-500" />
+            <div className="flex gap-15 items-center border border-gray-400 p-1 rounded text-gray-500 md:gap-25">
+              <p className="text-gray-500">{userDetail?.day}</p>
+              <FaCaretDown className="text-gray-500" onClick={dayArrows} />
+            </div>
+            <div
+              className={`absolute w-[90px]  bg-white shadow-md shadow-gray-300 h-[270px] overflow-x-auto p-4 ${
+                arrow?.dayArrow ? "visible" : "hidden"
+              } md:w-[135px] `}
+            >
+              <ul className="list-none">{date}</ul>
             </div>
           </div>
 
           <div>
-            <p className="text-gray-500">Month</p>
+            <p className="text-gray-500  ">Month</p>
             <div className="flex gap-15 items-center border border-gray-400 p-1 rounded text-gray-500 md:gap-25">
-              <p className="text-gray-500">34</p>
-              <FaCaretDown className="text-gray-500" />
+              <p className="text-gray-500">{userDetail?.month}</p>
+              <FaCaretDown className="text-gray-500" onClick={monthArrows} />
+            </div>
+
+            <div
+              className={`absolute w-[90px] bg-white shadow-md shadow-gray-300 h-[270px] overflow-x-auto p-4 ${
+                arrow?.monthArrow ? "visible" : "hidden"
+              } md:w-[135px]`}
+            >
+              <ul className="list-none">{month}</ul>
             </div>
           </div>
           <div>
             <p className="text-gray-500">Year</p>
             <div className="flex gap-15 items-center border border-gray-500 p-1 rounded text-gray-500 md:gap-25">
-              <p className="text-gray-500">34</p>
-              <FaCaretDown className="text-gray-500" />
+              <p className="text-gray-500">{userDetail?.year}</p>
+              <FaCaretDown className="text-gray-500" onClick={yearArrows} />
+            </div>
+            <div
+              className={`absolute w-[90px] bg-white shadow-md shadow-gray-300 h-[270px] overflow-x-auto p-4 ${
+                arrow?.yearArrow ? "visible" : "hidden"
+              } md:w-[135px]`}
+            >
+              <ul className="list-none">{years}</ul>
             </div>
           </div>
         </div>

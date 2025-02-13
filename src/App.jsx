@@ -47,7 +47,7 @@ function App() {
           <First GoogleSignUp={GoogleSignUp} FacebookSign={FacebookSign} />
         }
       />
-      <Route path="/login" element={<SignUp />} />
+      <Route path="/signUp" element={<SignUp />} />
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
