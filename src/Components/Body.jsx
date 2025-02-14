@@ -15,20 +15,20 @@ export default function Body({ GoogleSignUp, FacebookSign }) {
         </p>
 
         <div
-          className="flex gap-10 justify-center border-1 rounded-2xl p-1 mt-8"
+          className="flex gap-10 justify-center border-1 rounded-2xl p-1 mt-8 cursor-pointer"
           onClick={GoogleSignUp}
         >
           <img src="/images/google.png" alt="" className="w-[25px] " />{" "}
           <p className="text-semi-bold">Continue with Google</p>
         </div>
         <div
-          className="flex gap-4 justify-center border-1 rounded-2xl p-1 mt-3"
+          className="flex gap-4 justify-center border-1 rounded-2xl p-1 mt-3 cursor-pointer"
           onClick={FacebookSign}
         >
           <img src="/images/FACEBOOK.png" alt="" className="w-[25px] " />{" "}
           <p className="text-semi-bold pl-4">Continue with Facebook</p>
         </div>
-        <div className="flex gap-12 justify-center border-1 rounded-2xl p-1 mt-3">
+        <div className="flex gap-12 justify-center border-1 rounded-2xl p-1 mt-3 cursor-pointer">
           <img src="/images/apple.png" alt="" className="w-[25px] " />
           <p className="text-semi-bold">Continue with Apple</p>
         </div>
@@ -38,7 +38,6 @@ export default function Body({ GoogleSignUp, FacebookSign }) {
           <div className="w-[150px] bg-gray-300 h-[2px]"></div>
         </div>
         <div className="flex justify-center mt-[30px] ">
-          {" "}
           <button
             type="submit"
             className="bg-black text-white text-center w-full p-[6px] rounded-2xl text-[13px] "

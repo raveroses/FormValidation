@@ -1,75 +1,29 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaCaretDown, FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-
+import UserContext from "../Components/UserContext";
 export default function SignUp() {
-  const [userDetail, setUserDetail] = useState(() => {
-    const user = localStorage.getItem("details");
-    return user
-      ? JSON.parse(user)
-      : {
-          profileName: "",
-          phoneNumber: "",
-          email: "",
-          password: "",
-          day: "",
-          month: "",
-          year: "",
-        };
-  });
-
-  const handleValidation = () => {
-    if (
-      !userDetail.profileName ||
-      !userDetail.phoneNumber ||
-      !userDetail.email ||
-      !userDetail.password ||
-      !userDetail.day ||
-      !userDetail.month ||
-      !userDetail.year
-    ) {
-      alert("Please fill all the required field");
-      return;
-    }
-    return true;
-  };
-
-  const handleSubmission = () => {
-    if (handleValidation()) {
-      alert("all set");
-    }
-  };
-  const [passwordToggling, setPasswordToggling] = useState(false);
-  const passwordToggle = () => {
-    setPasswordToggling((prev) => !prev);
-  };
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setUserDetail((prev) => {
-      const userSaved = { ...prev, [name]: value };
-      localStorage.setItem("details", JSON.stringify(userSaved));
-      return userSaved;
-    });
-  };
-
-  const [gender, setGender] = useState(() => {
-    const save = localStorage.getItem("gender");
-    return save ? JSON.parse(save) : "";
-  });
-  const handleToggling = (e) => {
-    setGender(() => {
-      const save = e.target.value;
-      localStorage.setItem("gender", JSON.stringify(save));
-      return save;
-    });
-  };
+  const {
+    month,
+    date,
+    years,
+    handleToggling,
+    gender,
+    onChange,
+    passwordToggle,
+    passwordToggling,
+    checko,
+    handleCheck,
+    handleSubmission,
+    userDetail,
+  } = useContext(UserContext);
+  console.log(userDetail);
   const [arrow, setArrow] = useState({
     dayArrow: false,
     monthArrow: false,
     yearArrow: false,
   });
 
-  console.log(arrow);
   const dayArrows = () => {
     setArrow((prev) => ({
       ...prev,
@@ -94,74 +48,6 @@ export default function SignUp() {
       dayArrow: false,
     }));
   };
-
-  const monthsListing = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  const handleDate = (i) => {
-    setUserDetail((prev) => {
-      const saver = { ...prev, day: i };
-      localStorage.setItem("details", JSON.stringify(saver));
-      return saver;
-    });
-  };
-  const handleMonth = (i) => {
-    setUserDetail((prev) => {
-      const saver = { ...prev, month: i };
-      localStorage.setItem("details", JSON.stringify(saver));
-      return saver;
-    });
-  };
-
-  const handleYear = (i) => {
-    setUserDetail((prev) => {
-      const saver = { ...prev, year: i };
-      localStorage.setItem("details", JSON.stringify(saver));
-      return saver;
-    });
-  };
-
-  const date = Array.from({ length: 31 }, (_, i) => {
-    return (
-      <li
-        key={i + 1}
-        className="hover:bg-gray-500"
-        onClick={() => handleDate(i + 1)}
-      >
-        {i + 1}
-      </li>
-    );
-  });
-  const years = Array.from({ length: 2025 + 1 }, (_, i) => {
-    return (
-      <li key={i} className="hover:bg-gray-500" onClick={() => handleYear(i)}>
-        {i}
-      </li>
-    );
-  });
-  const month = monthsListing.map((item, i) => {
-    return (
-      <li
-        key={i}
-        className="hover:bg-gray-500 mb-[2px]"
-        onClick={() => handleMonth(item)}
-      >
-        {item}
-      </li>
-    );
-  });
 
   return (
     <div className="flex flex-col justify-center w-full p-2 md:p-0">
@@ -337,7 +223,13 @@ export default function SignUp() {
           </div>
         </div>
         <div className="flex mt-3">
-          <input type="checkbox" name="" id="" />
+          <input
+            type="checkbox"
+            name="checkbox"
+            value="check"
+            onChange={handleCheck}
+            checked={checko === "check"}
+          />
           <p className="text-gray-500 text-[12px] ml-2">
             By creating an account, you agree to our Terms of use and Privacy
             Policy
