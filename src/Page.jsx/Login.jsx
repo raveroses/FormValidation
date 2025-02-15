@@ -1,16 +1,15 @@
 import {
-  getAuth,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-import UserContext from "../Components/UserContext";
 import { useNavigate } from "react-router-dom";
 import auth from "../Components/FirebaseConfig/FirebaseConfig";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
-  const { userDetail } = useContext(UserContext);
   const [eyeHidden, setEyeHidden] = useState(false);
   const handleEyeHidden = () => {
     setEyeHidden((prev) => !prev);
@@ -27,17 +26,13 @@ export default function Login() {
   });
 
   const [attempt, setAttempt] = useState(5);
-  const [errorMessage, setErrorMessage] = useState("");
-  console.log(errorMessage);
   console.log(attempt);
   const handleValidation = () => {
     if (!loginDeet?.password.trim() || !loginDeet?.email.trim()) {
-      alert("Please fill all required field");
+      toast.error("Please fill all required field");
       return false;
     }
-    // if (!userDetail?.email.trim() || !userDetail?.password.trim()) {
-    //   return false;
-    // }
+
     return true;
   };
 
@@ -45,7 +40,7 @@ export default function Login() {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    console.log("clicked");
+
     if (!handleValidation()) return;
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -57,13 +52,14 @@ export default function Login() {
       console.log(user);
       setLoginDeet({ email: "", password: "" });
       localStorage.removeItem("getDetail");
+      toast.success("Account Login succcessfully");
       navigate("/dashboard");
     } catch (error) {
       const errorCode = error.code;
       //   const errorMessage = error.message;
       if (errorCode === "auth/invalid-credential") {
+        toast.error("Incorrect Password");
         setAttempt((prev) => prev - 1);
-        setErrorMessage("Incorrect Password");
       }
       console.log(errorCode);
     }
@@ -82,7 +78,7 @@ export default function Login() {
   useEffect(() => {
     if (attempt === 0) {
       setDisables(true);
-      alert("Too many request");
+      toast.error("Too many failed attempts. Try again later.");
     }
   }, [attempt]);
   const handleResetPassword = async (e) => {
@@ -92,14 +88,12 @@ export default function Login() {
       try {
         await sendPasswordResetEmail(auth, loginDeet?.email.trim());
 
-        // Password reset email sent!
-        console.log("checl mail");
+        toast.success("Link sent to your E-mail");
         // ..
       } catch (error) {
-        const errorCode = error.code;
         const errorMessage = error.message;
         // ..
-        console.log(errorCode);
+        toast.error(errorMessage);
       }
     }
   };
@@ -160,6 +154,7 @@ export default function Login() {
           Don't have an account? <a href="/signUp">Sign up</a>
         </p>
       </form>
+      <ToastContainer />
     </div>
   );
 }

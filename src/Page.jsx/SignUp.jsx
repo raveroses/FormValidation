@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import { FaCaretDown, FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-import { FaTimes } from "react-icons/fa";
-import UserContext from "../Components/UserContext";
+import UserContext from "../Context.jsx/UserContext";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function SignUp() {
   const {
     month,
@@ -17,9 +18,6 @@ export default function SignUp() {
     handleCheck,
     handleSubmission,
     userDetail,
-    loading,
-    // errorLoading,
-    errorMessages,
   } = useContext(UserContext);
   console.log(userDetail);
   const [arrow, setArrow] = useState({
@@ -194,7 +192,6 @@ export default function SignUp() {
             >
               <ul className="list-none">{date}</ul>
             </div>
-            {/* <ul className="list-none">{date}</ul> */}
           </div>
 
           <div>
@@ -255,19 +252,7 @@ export default function SignUp() {
           </a>
         </p>
       </form>
-
-      {loading && (
-        <div className="bg-white w-[300px] h-[80px]  absolute top-15 right-4 font-semi-bold shadow-md rounded">
-          <FaTimes className="mt-1 ml-[280px]" />
-          <div className="p-2 text-[15px] font-semi-bold text-gray-600">
-            {(loading && "Account created successfully") ||
-              errorMessages.signUpError}
-          </div>
-          <div className="bg-green-200 w-[300px] h-[4px] absolute mt-[17px]">
-            <div className="bg-green-500 w-[300px] h-[4px] absolute"></div>
-          </div>
-        </div>
-      )}
+      <ToastContainer transition={Bounce} />
     </div>
   );
 }

@@ -7,15 +7,18 @@ import SignUp from "./Page.jsx/SignUp";
 import Dashboard from "./Page.jsx/Dashboard";
 import FacebookSign from "./Components/FirebaseConfig/Facebook";
 import Login from "./Page.jsx/Login";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import UserContext from "./Components/UserContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UserContext from "./Context.jsx/UserContext";
 function App() {
   const provider = new GoogleAuthProvider();
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
   const navigate = useNavigate();
   const GoogleSignUp = async () => {
+    console.log("clicked");
     try {
       const signn = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(signn);
@@ -58,8 +61,6 @@ function App() {
         };
   });
 
-  const [errorMessages, setErrorMessages] = useState([]);
-
   const [checko, setChecko] = useState("");
   const handleCheck = (e) => {
     setChecko(e.target.value);
@@ -86,21 +87,10 @@ function App() {
     return true;
   };
 
-  const [loading, setLoading] = useState(false);
-  const [errorLoading, setErrorLoading] = useState(false);
-  const [countdown, setCountDown] = useState(300);
-  const intervalRef = useRef(null);
-  const [cancel, setCancel] = useState(false);
-  const handleCancel = () => {
-    setCancel(true);
-  };
-  // const [errorMessages, setErrorMessages] = useState({});
-
+  //   const [user, setUser] = useState({});
   const handleSubmission = async (e) => {
     e.preventDefault();
     if (!handleValidation()) return;
-
-    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -108,9 +98,9 @@ function App() {
         userDetail.password.trim()
       );
       const user = userCredential.user;
-      navigate("/login");
 
       console.log(user);
+
       setUserDetail({
         profileName: "",
         phoneNumber: "",
@@ -121,9 +111,15 @@ function App() {
         year: "",
       });
       localStorage.removeItem("details");
+      toast.success("Account created successfully");
+      navigate("/login");
     } catch (error) {
-      setErrorLoading(true);
-      setErrorMessages((prev) => [...prev, error.message]);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+      console.log(errorCode);
+      console.log(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -238,9 +234,6 @@ function App() {
         handleCheck,
         handleSubmission,
         userDetail,
-        loading,
-        errorLoading,
-        errorMessages,
       }}
     >
       <Routes>

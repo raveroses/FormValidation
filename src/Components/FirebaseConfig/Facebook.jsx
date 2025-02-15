@@ -33,7 +33,8 @@ import {
 } from "firebase/auth";
 
 const provider = new FacebookAuthProvider();
-const FacebookSign = () => {
+const FacebookSign = (e) => {
+  e.preventDefault();
   signInWithRedirect(auth, provider);
   getRedirectResult(auth)
     .then((result) => {
