@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { FaCaretDown, FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
+import { FaTimes } from "react-icons/fa";
 import UserContext from "../Components/UserContext";
 export default function SignUp() {
   const {
@@ -250,6 +251,15 @@ export default function SignUp() {
           </a>
         </p>
       </form>
+      <div className="bg-white w-[300px] h-[80px]  absolute top-15 right-4 font-semi-bold shadow-md rounded">
+        <FaTimes className="mt-1 ml-[280px]" />
+        <div className="p-2 text-[15px] font-semi-bold text-gray-600">
+          There are too many requests in the office
+        </div>
+        <div className="bg-green-200 w-[300px] h-[4px] absolute mt-[17px]">
+          <div className="bg-green-500 w-[300px] h-[4px] absolute"></div>
+        </div>
+      </div>
     </div>
   );
 }

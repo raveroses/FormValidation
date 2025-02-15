@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 export default function Body({ GoogleSignUp, FacebookSign }) {
   return (
     <div className="w-full gap-20 p-10 md:m-auto md:mt-[10px] md:flex">

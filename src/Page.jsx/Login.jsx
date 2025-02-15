@@ -85,17 +85,22 @@ export default function Login() {
       alert("Too many request");
     }
   }, [attempt]);
-  const handleResetPassword = async () => {
-    try {
-      await sendPasswordResetEmail(auth, loginDeet?.email);
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    console.log("clicked");
+    if (attempt === 0) {
+      try {
+        await sendPasswordResetEmail(auth, loginDeet?.email.trim());
 
-      // Password reset email sent!
-      console.log("checl mail");
-      // ..
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
+        // Password reset email sent!
+        console.log("checl mail");
+        // ..
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        console.log(errorCode);
+      }
     }
   };
 
@@ -138,13 +143,12 @@ export default function Login() {
           onChange={handleOnChange}
           className="border-1 border-gray-400 p-2 rounded mb-1"
         />
-        <a
-          href=""
-          className="text-[14px] underline cursor-pointer hover:text-gray-500"
+        <button
+          className="text-[14px] underline cursor-pointer flex justify-left hover:text-gray-500"
           onClick={handleResetPassword}
         >
           Forgot Password
-        </a>
+        </button>
         <button
           className="bg-black rounded text-white text-[16px] p-2 text-center cursor-pointer mt-9 "
           disabled={disables && "disables"}
