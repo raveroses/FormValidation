@@ -17,6 +17,9 @@ export default function SignUp() {
     handleCheck,
     handleSubmission,
     userDetail,
+    loading,
+    // errorLoading,
+    errorMessages,
   } = useContext(UserContext);
   console.log(userDetail);
   const [arrow, setArrow] = useState({
@@ -191,6 +194,7 @@ export default function SignUp() {
             >
               <ul className="list-none">{date}</ul>
             </div>
+            {/* <ul className="list-none">{date}</ul> */}
           </div>
 
           <div>
@@ -251,15 +255,19 @@ export default function SignUp() {
           </a>
         </p>
       </form>
-      <div className="bg-white w-[300px] h-[80px]  absolute top-15 right-4 font-semi-bold shadow-md rounded">
-        <FaTimes className="mt-1 ml-[280px]" />
-        <div className="p-2 text-[15px] font-semi-bold text-gray-600">
-          There are too many requests in the office
+
+      {loading && (
+        <div className="bg-white w-[300px] h-[80px]  absolute top-15 right-4 font-semi-bold shadow-md rounded">
+          <FaTimes className="mt-1 ml-[280px]" />
+          <div className="p-2 text-[15px] font-semi-bold text-gray-600">
+            {(loading && "Account created successfully") ||
+              errorMessages.signUpError}
+          </div>
+          <div className="bg-green-200 w-[300px] h-[4px] absolute mt-[17px]">
+            <div className="bg-green-500 w-[300px] h-[4px] absolute"></div>
+          </div>
         </div>
-        <div className="bg-green-200 w-[300px] h-[4px] absolute mt-[17px]">
-          <div className="bg-green-500 w-[300px] h-[4px] absolute"></div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
