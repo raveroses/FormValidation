@@ -245,7 +245,7 @@ export default function SignUp() {
         </div>
         <p className="text-center">
           Already have an account ?
-          <a href="" className="underline">
+          <a href="/login" className="underline">
             Login
           </a>
         </p>

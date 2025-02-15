@@ -80,6 +80,7 @@ function App() {
     }
     if (!checko) {
       alert("Agree to the term and Condition");
+      return false;
     }
     return true;
   };
@@ -88,6 +89,7 @@ function App() {
   const handleSubmission = async (e) => {
     e.preventDefault();
     if (!handleValidation()) return;
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -97,6 +99,16 @@ function App() {
       const user = userCredential.user;
 
       console.log(user);
+      setUserDetail({
+        profileName: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        day: "",
+        month: "",
+        year: "",
+      });
+      localStorage.removeItem("details");
       navigate("/login");
     } catch (error) {
       const errorCode = error.code;
