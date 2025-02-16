@@ -7,7 +7,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import auth from "../Components/FirebaseConfig/FirebaseConfig";
-import { toast, ToastContainer } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const [eyeHidden, setEyeHidden] = useState(false);
@@ -154,7 +154,7 @@ export default function Login() {
           Don't have an account? <a href="/signUp">Sign up</a>
         </p>
       </form>
-      <ToastContainer />
+      <ToastContainer transition={Bounce} />
     </div>
   );
 }
