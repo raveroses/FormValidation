@@ -1,9 +1,8 @@
+import DashboardHeader from "../Components/DashBoardHeader";
 export default function Dashboard() {
   return (
-    <>
-      <p>hhshshhsh</p>
-      <h1>GGGGG</h1>
-      {/* <button onClick={notify}>Notify !</button> */}
-    </>
+    <div className="bg-[#0C1027] w-full h-screen px-2 py-5 md:px-15 md:py-8">
+      <DashboardHeader />
+    </div>
   );
 }

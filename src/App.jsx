@@ -17,8 +17,8 @@ function App() {
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
   const navigate = useNavigate();
+
   const GoogleSignUp = async () => {
-    console.log("clicked");
     try {
       const signn = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(signn);
@@ -28,8 +28,8 @@ function App() {
       // IdP data available using getAdditionalUserInfo(result)
       // ...
       navigate("/dashboard");
-      console.log(user);
-      console.log(token);
+      console.log(`User=> ${JSON.stringify(user)}`);
+      console.log(`Token=> ${token}`);
     } catch (error) {
       // // Handle Errors here.
       // const errorCode = error.code;
@@ -215,7 +215,32 @@ function App() {
       </li>
     );
   });
+  const generateRandomString = (length) => {
+    const possible =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const values = crypto.getRandomValues(new Uint8Array(length));
+    return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+  };
 
+  const codeVerifier = generateRandomString(64);
+
+  const sha256 = async (plain) => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(plain);
+    return window.crypto.subtle.digest("SHA-256", data);
+  };
+  const base64encode = (input) => {
+    return btoa(String.fromCharCode(...new Uint8Array(input)))
+      .replace(/=/g, "")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_");
+  };
+  const hashed = sha256(codeVerifier);
+  const codeChallenge = base64encode(hashed);
+  console.log(hashed);
+  console.log(codeChallenge);
+
+  // STARTED
   return (
     <UserContext.Provider
       value={{
