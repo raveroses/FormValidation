@@ -3,9 +3,13 @@ import { FaMicrophone } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import SwiperPlace from "./SwiperPlace";
+import CardSection from "./CardSection";
 export default function DashboardHeader() {
   return (
-    <div className="bg-[url(https://image.tmdb.org/t/p/original//9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg&quot)] bg-fixed bg-center bg-no-repeat bg-cover w-full h-[500px] md:h-[600px] md:px-8 md:py-5 backdrop-opacity-10">
+    <div
+      className="bg-[url(https://image.tmdb.org/t/p/original//9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg&quot)] p-auto bg-fixed bg-center
+     bg-no-repeat bg-cover h-[500px] md:w-full  md:h-[550px] py-3 px-4 md:px-8 md:py-5 backdrop-opacity-80"
+    >
       <header className="flex justify-between items-center">
         <div className="flex justify-start flex-col w-[30%] md:w-[20%]">
           <FaHeadphones className="text-[45px] text-white ml-[20px] md:text-[40px]" />
@@ -37,6 +41,7 @@ export default function DashboardHeader() {
         </div>
       </header>
       <SwiperPlace />
+      <CardSection />
     </div>
   );
 }
