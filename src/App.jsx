@@ -18,6 +18,7 @@ function App() {
 
   const navigate = useNavigate();
 
+  const [user, setUser] = useState({});
   const GoogleSignUp = async () => {
     try {
       const signn = await signInWithPopup(auth, provider);
@@ -28,7 +29,7 @@ function App() {
       // IdP data available using getAdditionalUserInfo(result)
       // ...
       navigate("/dashboard");
-      console.log(`User=> ${JSON.stringify(user)}`);
+      setUser((prev) => ({ ...prev, user }));
       console.log(`Token=> ${token}`);
     } catch (error) {
       // // Handle Errors here.
@@ -44,6 +45,7 @@ function App() {
     }
   };
 
+  console.log(user);
   // THE SIGNUP PAGE PASTE
 
   const [userDetail, setUserDetail] = useState(() => {
@@ -215,32 +217,21 @@ function App() {
       </li>
     );
   });
-  const generateRandomString = (length) => {
-    const possible =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const values = crypto.getRandomValues(new Uint8Array(length));
-    return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+
+  const fetchTrendingSongs = async () => {
+    try {
+      const response = await fetch(
+        "https://api.audiomack.com/v1/songs/trending"
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching Audiomack data:", error);
+    }
   };
 
-  const codeVerifier = generateRandomString(64);
+  console.log(fetchTrendingSongs()); // Call the function
 
-  const sha256 = async (plain) => {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(plain);
-    return window.crypto.subtle.digest("SHA-256", data);
-  };
-  const base64encode = (input) => {
-    return btoa(String.fromCharCode(...new Uint8Array(input)))
-      .replace(/=/g, "")
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_");
-  };
-  const hashed = sha256(codeVerifier);
-  const codeChallenge = base64encode(hashed);
-  console.log(hashed);
-  console.log(codeChallenge);
-
-  // STARTED
   return (
     <UserContext.Provider
       value={{
