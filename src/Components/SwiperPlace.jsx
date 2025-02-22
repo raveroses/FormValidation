@@ -5,7 +5,7 @@ import { GoVideo } from "react-icons/go";
 export default function SwiperPlace() {
   return (
     <div className="pt-55">
-      <div className="text-white text-[30px] font-extrabold md:text-[40px] hover:text-blue-500">
+      <div className="text-white text-[30px] font-extrabold inline-block cursor-pointer md:text-[40px] hover:text-blue-500">
         The Gorge
       </div>
       <div className="flex items-center gap-2 md:gap-10 ">
