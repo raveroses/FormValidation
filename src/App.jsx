@@ -218,20 +218,6 @@ function App() {
     );
   });
 
-  const fetchTrendingSongs = async () => {
-    try {
-      const response = await fetch(
-        "https://api.audiomack.com/v1/songs/trending"
-      );
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching Audiomack data:", error);
-    }
-  };
-
-  console.log(fetchTrendingSongs()); // Call the function
-
   return (
     <UserContext.Provider
       value={{
