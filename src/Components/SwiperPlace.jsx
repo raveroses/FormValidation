@@ -2,11 +2,11 @@ import { RiMovie2AiFill } from "react-icons/ri";
 import { FaStar } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
-export default function SwiperPlace() {
+export default function SwiperPlace(title, rate, overview) {
   return (
     <div className="pt-55">
       <div className="text-white text-[30px] font-extrabold inline-block cursor-pointer md:text-[40px] hover:text-blue-500">
-        The Gorge
+        {title}
       </div>
       <div className="flex items-center gap-2 md:gap-10 ">
         <div className="bg-blue-500 inline-block rounded px-3 py-1 md:px-4 cursor-pointer ">
@@ -14,7 +14,7 @@ export default function SwiperPlace() {
         </div>
         <div className="flex items-center">
           <FaStar className="text-white text-[18px]" />
-          <p className="text-white">7.6</p>
+          <p className="text-white">{rate}</p>
         </div>
         <div className="text-gray-400 text-[13px] hover:text-white cursor-pointer hover:transition hover:delay-150 hover:duration-700 hover:ease-in-out">
           Romance
@@ -27,10 +27,7 @@ export default function SwiperPlace() {
         </div>
       </div>
       <div className="text-gray-400 pt-4 text-semi-bold hidden md:block">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores
-        dicta enim quidem voluptatem, dignissimos nulla, aut facilis, sint alias
-        quis dolores rem! Ex fugiat voluptates numquam delectus. Tenetur,
-        voluptatem nisi?
+        {overview}
       </div>
       <div className="flex items-center gap-3 mt-6 md:gap-5">
         <div
