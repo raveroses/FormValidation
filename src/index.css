@@ -6,3 +6,9 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+.custom-swiper {
+  bottom: -9px !important; /* Adjust this value as needed */
+  z-index: 99;
+  color: white;
+}

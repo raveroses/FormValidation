@@ -1,24 +1,20 @@
+import { useEffect } from "react";
+import useFetch from "./api/UseFetch";
 import { TiStarFullOutline } from "react-icons/ti";
 import { MdPlayCircle } from "react-icons/md";
-import { useEffect, useState } from "react";
-import useFetch from "./api/UseFetch";
-// import { toast } from "react-toastify";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Trending from "./Trending";
-import AllMovie from "./AllMovie";
-export default function CardSection() {
+export default function Trending() {
   const { dataSetter, loading, fetchMovie } = useFetch(
-    "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
+    "https://api.themoviedb.org/3/trending/movie/day?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
   useEffect(() => {
     fetchMovie();
   }, []);
-
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
       const dates = new Date(items.release_date);
@@ -57,41 +53,34 @@ export default function CardSection() {
       );
     });
   });
-
   return (
-    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-4 md:px-8">
-      <section className="Popular">
-        <h2 className="text-white text-[25px] border-b-1 border-white  w-[150px] mb-7">
-          Popular
-        </h2>
-        <Swiper
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={10}
-          slidesPerView={2}
-          navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
-          breakpoints={{
-            768: {
-              slidesPerView: 6,
-              spaceBetween: 0,
-            },
-          }}
-          className="custom-swiper"
-        >
-          {check}
-        </Swiper>
-      </section>
-      <section className="trending">
-        <Trending />
-      </section>
-
-      <section className="movies">
-        <AllMovie />
-      </section>
-      <section className="movies"></section>
+    <div className="bg-red-600">
+      <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-4 md:px-8">
+        <section className="trending">
+          <h2 className="text-white text-[25px] border-b-1 border-white  w-[150px] mb-7">
+            Top Trending
+          </h2>
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={10}
+            slidesPerView={2}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+            breakpoints={{
+              768: {
+                slidesPerView: 6,
+                spaceBetween: 0,
+              },
+            }}
+            className="custom-swiper"
+          >
+            {check}
+          </Swiper>
+        </section>
+      </div>
     </div>
   );
 }

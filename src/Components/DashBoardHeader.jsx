@@ -1,16 +1,9 @@
 // import SwiperPlace from "./SwiperPlace";
 import { useEffect, useState } from "react";
 import useFetch from "./api/UseFetch";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-} from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import MoviePageHeader from "./MoviesPageHeader";
@@ -18,22 +11,20 @@ import { RiMovie2AiFill } from "react-icons/ri";
 import { FaStar } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
+
 export default function DashboardHeader() {
-  // const [bgImage, setBgImage] = useState("");
-  // const images = new Image();
-  // images.src = `https://image.tmdb.org/t/p/original/${items.backdrop_path}`;
-  // images.onload = () => setBgImage(images.src);
   const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
-
+  // https://api.themoviedb.org/3/movie/550?api_key=b23cab54b01ec0634aae0d6fc905411b
   useEffect(() => {
     fetchMovie();
   }, []);
-  console.log(dataSetter);
+
   const check = dataSetter.flatMap((item) => {
-    return item.results.map((items, index) => {
+    return item.results.slice(0, 6).map((items, index) => {
       const rate = items.vote_average.toFixed(1);
+
       return (
         <SwiperSlide key={index}>
           <div
@@ -102,16 +93,14 @@ export default function DashboardHeader() {
   return (
     <div>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        modules={[Pagination, Autoplay]}
         spaceBetween={0}
         slidesPerView={1}
-        navigation
+        // navigation
         pagination={{ clickable: false }}
         scrollbar={{ draggable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
       >
         {check}
         <MoviePageHeader />
