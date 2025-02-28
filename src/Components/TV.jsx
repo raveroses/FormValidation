@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import useFetch from "./api/UseFetch";
 import { TiStarFullOutline } from "react-icons/ti";
 import { MdPlayCircle } from "react-icons/md";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { NavLink } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -30,7 +29,9 @@ export default function TV() {
             loading="lazy"
             className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
-          <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+          <NavLink to={`/video/:${items.id}`}>
+            <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+          </NavLink>
           <div className=" absolute left-0 top-42 px-3 md:top-45">
             <p className="text-white  text-[16px] font-bold-semibold">
               {items?.name}

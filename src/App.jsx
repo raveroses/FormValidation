@@ -12,6 +12,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from "./Context.jsx/UserContext";
+import DisplayVideo from "./Components/DisplayVideo";
 function App() {
   const provider = new GoogleAuthProvider();
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
@@ -249,6 +250,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/video/:videoId" element={<DisplayVideo />} />
       </Routes>
     </UserContext.Provider>
   );
