@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useFetch from "./api/UseFetch";
 import { TiStarFullOutline } from "react-icons/ti";
 import { MdPlayCircle } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 export default function AllMovie() {
   const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/trending/all/day?api_key=b23cab54b01ec0634aae0d6fc905411b"
@@ -16,7 +17,7 @@ export default function AllMovie() {
       const getYear = dates.getFullYear();
       const rate = items.vote_average;
       const shortenRate = rate.toFixed(1);
-
+      console.log(items);
       return (
         <div key={index} className="group relative ">
           <img
@@ -25,7 +26,10 @@ export default function AllMovie() {
             loading="lazy"
             className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
-          <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+          <NavLink to={`/video/${items.id}`}>
+            {" "}
+            <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+          </NavLink>
           <div className=" absolute left-0 top-42 px-3 md:top-45">
             <p className="text-white  text-[16px] font-bold-semibold">
               {items?.title}

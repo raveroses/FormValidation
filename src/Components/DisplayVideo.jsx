@@ -5,13 +5,15 @@ export default function DisplayVideo() {
   let param = useParams();
   const convert = Number(param.videoId.replace(":", "").trim());
   const { dataSetter, loading, fetchMovie } = useFetch(
-    `      https://api.themoviedb.org/3/tv/${convert}/videos?api_key=b23cab54b01ec0634aae0d6fc905411b`
+    `https://api.themoviedb.org/3/movie/${convert}?api_key=b23cab54b01ec0634aae0d6fc905411b`
   );
   console.log(convert);
-  console.log(dataSetter);
+  console.log(dataSetter[0]);
   useEffect(() => {
     fetchMovie();
   }, []);
+  // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
+  // https://api.themoviedb.org/3/tv/63770?api_key=b23cab54b01ec0634aae0d6fc905411b
 
   return (
     <>
