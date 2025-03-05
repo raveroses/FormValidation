@@ -1,17 +1,31 @@
 import { useParams } from "react-router-dom";
 import useFetch from "./api/UseFetch";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import UserContext from "../Context.jsx/UserContext";
+
 export default function DisplayVideo() {
+  const { endpointChanger } = useContext(UserContext);
   let param = useParams();
   const convert = Number(param.videoId.replace(":", "").trim());
   const { dataSetter, loading, fetchMovie } = useFetch(
-    `https://api.themoviedb.org/3/movie/${convert}?api_key=b23cab54b01ec0634aae0d6fc905411b`
+    `https://api.themoviedb.org/3/${
+      endpointChanger ? "tv" : "movie"
+    }/${convert}?api_key=b23cab54b01ec0634aae0d6fc905411b`
   );
+
+  console.log(
+    `Fetching: https://api.themoviedb.org/3/${
+      endpointChanger ? "tv" : "movie"
+    }/${convert}??api_key=b23cab54b01ec0634aae0d6fc905411b`
+  );
+
   console.log(convert);
   console.log(dataSetter[0]);
   useEffect(() => {
     fetchMovie();
   }, []);
+  console.log(endpointChanger);
+
   // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
   // https://api.themoviedb.org/3/tv/63770?api_key=b23cab54b01ec0634aae0d6fc905411b
 

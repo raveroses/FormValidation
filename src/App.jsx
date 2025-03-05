@@ -218,7 +218,12 @@ function App() {
       </li>
     );
   });
-
+  const [endpointChanger, setEndPointChanger] = useState("");
+  console.log(endpointChanger);
+  const handleEndPointChanger = () => {
+    console.log("...working");
+    setEndPointChanger("tv");
+  };
   return (
     <UserContext.Provider
       value={{
@@ -237,6 +242,8 @@ function App() {
         handleCheck,
         handleSubmission,
         userDetail,
+        endpointChanger,
+        handleEndPointChanger,
       }}
     >
       <Routes>
