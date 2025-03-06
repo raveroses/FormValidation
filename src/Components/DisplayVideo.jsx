@@ -37,6 +37,7 @@ export default function DisplayVideo() {
         <img
           src="https://image.tmdb.org/t/p/original/rDYSuBYKR4US3A0XfuCiFzVq5CJ.jpg"
           alt="hero-mage"
+          className=" h-[500px] w-full"
         />
       </div>
       <div className="text-white absolute top-30 flex gap-20 w-full px-4 md:px-8">
@@ -48,7 +49,7 @@ export default function DisplayVideo() {
             loading="lazy"
           />
         </div>
-        <div className="movieContent w-[60%]">
+        <div className="movieContent w-[60%] flex flex-col gap-7">
           <h2 className="font-bold text-[40px] tracking-[3px]"> Companion</h2>
           <div className="smally flex gap-5 text-[16px]">
             <p>2025</p>
@@ -63,7 +64,7 @@ export default function DisplayVideo() {
               <span>
                 <BsStarFill className="text-[20px]" />
               </span>
-              7.10 /<span className="text-[15px] text-gray-600">10</span>
+              7.10 /<span className="text-[15px] text-gray-300">10</span>
             </p>
             <p> Trailer</p>
           </div>
@@ -85,13 +86,17 @@ export default function DisplayVideo() {
             they uncover unsettling truths about themselves and the world around
             them.
           </p>
-          <div className="flex gap-3 ">
+          <div className="flex gap-1 items-center rounded-3xl bg-gray-600 opacity-[0.7] p-1 w-[150px]">
             <p>
-              <RiPlayFill />
+              <RiPlayFill className="text-[20px] text-white" />
             </p>
-            <span> Watch Now</span>
+            <p> Watch Now</p>
           </div>
         </div>
+      </div>
+
+      <div className="cover">
+        <p className="text-black">Recommends</p>
       </div>
     </div>
   );
