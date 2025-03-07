@@ -5,7 +5,8 @@ import UserContext from "../Context.jsx/UserContext";
 import { PiClockCountdown } from "react-icons/pi";
 import { BsStarFill } from "react-icons/bs";
 import { RiPlayFill } from "react-icons/ri";
-import { TiStarFullOutline } from "react-icons/ti";
+import MoviePageHeader from "./MoviesPageHeader";
+import Recommended from "./Recommended";
 export default function DisplayVideo() {
   const { endpointChanger } = useContext(UserContext);
   let param = useParams();
@@ -14,12 +15,6 @@ export default function DisplayVideo() {
     `https://api.themoviedb.org/3/${
       endpointChanger ? "tv" : "movie"
     }/${convert}?api_key=b23cab54b01ec0634aae0d6fc905411b`
-  );
-
-  console.log(
-    `Fetching: https://api.themoviedb.org/3/${
-      endpointChanger ? "tv" : "movie"
-    }/${convert}??api_key=b23cab54b01ec0634aae0d6fc905411b`
   );
 
   console.log(convert);
@@ -31,15 +26,6 @@ export default function DisplayVideo() {
   // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
   // https://api.themoviedb.org/3/tv/63770?api_key=b23cab54b01ec0634aae0d6fc905411b
 
-  // for (let [key, value] of Object.entries(dataSetter[0])) {
-  //   const obj = {};
-  //   obj[key] = value;
-
-  // }
-  console.log(dataSetter);
-  const arr = [dataSetter[0]].map((item) => console.log(item));
-
-  // const dataReturn = [dataSetter[0]].map((item, index) => {
   const dataReturn = dataSetter.map((item, index) => {
     const dates = new Date(item?.first_air_date || item?.release_date);
     const getYear = dates.getFullYear();
@@ -110,72 +96,8 @@ export default function DisplayVideo() {
   return (
     <div className="hero ">
       <> {dataReturn}</>
-      <div className="cover px-4 py-40 md:px-8 md:py-15">
-        <p className="text-gray-400 text-[25px] font-semibold tracking-[3px] ">
-          Recommends
-        </p>
-
-        <div className="card-flex flex items-center gap-10">
-          <div className="py-5">
-            <div className="relative">
-              <img
-                src="https://image.tmdb.org/t/p/original//oCoTgC3UyWGfyQ9thE10ulWR7bn.jpg"
-                alt="poster-image"
-                className="w-[150px] rounded-2xl"
-                loading="lazy"
-              />
-              <div>
-                <div className=" absolute left-0 top-42 px-3 md:top-40">
-                  <p className="text-white  text-[16px] font-bold-semibold">
-                    guy
-                  </p>
-                  <div className="flex items-center justify-between gap-3 text-gray-200">
-                    <div className="flex items-center gap-2 font-medium">
-                      <p className="text-[13px]">2025</p>
-                      <span className="flex items-center">
-                        <TiStarFullOutline className="text-[13px]" />
-                        <p className="text-[12px]">57</p>
-                      </span>
-                    </div>
-                    <p className="text-[13px] border-1 px-1 border-gray-400 rounded">
-                      movie
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="py-5">
-            <div className="relative">
-              <img
-                src="https://image.tmdb.org/t/p/original//oCoTgC3UyWGfyQ9thE10ulWR7bn.jpg"
-                alt="poster-image"
-                className="w-[150px] rounded-2xl"
-                loading="lazy"
-              />
-              <div>
-                <div className=" absolute left-0 top-42 px-3 md:top-40">
-                  <p className="text-white  text-[16px] font-bold-semibold">
-                    guy
-                  </p>
-                  <div className="flex items-center justify-between gap-3 text-gray-200">
-                    <div className="flex items-center gap-2 font-medium">
-                      <p className="text-[13px]">2025</p>
-                      <span className="flex items-center">
-                        <TiStarFullOutline className="text-[13px]" />
-                        <p className="text-[12px]">57</p>
-                      </span>
-                    </div>
-                    <p className="text-[13px] border-1 px-1 border-gray-400 rounded">
-                      movie
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MoviePageHeader />
+      <Recommended params={param} />
     </div>
   );
 }

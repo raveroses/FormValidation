@@ -255,6 +255,7 @@ function App() {
           }
         />
         <Route path="/signUp" element={<SignUp />} />
+
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/video/:videoId" element={<DisplayVideo />} />
