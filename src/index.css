@@ -13,14 +13,14 @@ body {
   color: white;
 }
 
+.smally p {
+  padding-right: 5px;
+  font-weight: 400;
+}
+
 .cover {
   background-color: black;
   height: 100%;
   width: 100%;
-  opacity: 0.9;
-}
-
-.smally p {
-  padding-right: 5px;
-  font-weight: 400;
+  /* opacity: 0.8; */
 }
