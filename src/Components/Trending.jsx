@@ -70,12 +70,22 @@ export default function Trending() {
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
             breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 5,
+              },
               768: {
-                slidesPerView: 6,
-                spaceBetween: 0,
+                slidesPerView: 4,
+                spaceBetween: 5,
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 5,
+              },
+              1280: {
+                slidesPerView: 7,
+                spaceBetween: 5,
               },
             }}
             className="custom-swiper"

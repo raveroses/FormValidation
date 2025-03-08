@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import useFetch from "./api/UseFetch";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
 import { PiClockCountdown } from "react-icons/pi";
 import { BsStarFill } from "react-icons/bs";
@@ -9,18 +9,24 @@ import MoviePageHeader from "./MoviesPageHeader";
 import Recommended from "./Recommended";
 export default function DisplayVideo() {
   const { endpointChanger } = useContext(UserContext);
+  const [idDisplay, setIdDisplay] = useState("");
+  const handleDisplay = (id) => {
+    setIdDisplay(Number(id));
+  };
   let param = useParams();
+  const location = useLocation();
+  const idgetter = location?.state?.idDisplay || "No message received";
+  console.log(idgetter);
   const convert = Number(param.videoId.replace(":", "").trim());
   const { dataSetter, loading, fetchMovie } = useFetch(
-    `https://api.themoviedb.org/3/${
-      endpointChanger ? "tv" : "movie"
-    }/${convert}?api_key=b23cab54b01ec0634aae0d6fc905411b`
+    `https://api.themoviedb.org/3/${endpointChanger ? "tv" : "movie"}/${
+      convert || idgetter
+    }?api_key=b23cab54b01ec0634aae0d6fc905411b`
   );
 
-  console.log(convert);
   useEffect(() => {
     fetchMovie();
-  }, []);
+  }, [param.videoId, location.state]);
   console.log(endpointChanger);
 
   // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
