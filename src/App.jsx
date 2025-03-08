@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from "./Context.jsx/UserContext";
 import DisplayVideo from "./Components/DisplayVideo";
+import MovieTrailer from "./Page.jsx/MovieTrailer";
 function App() {
   const provider = new GoogleAuthProvider();
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
@@ -259,6 +260,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/video/:videoId" element={<DisplayVideo />} />
+        <Route path="/trailer" element={<MovieTrailer />} />
       </Routes>
     </UserContext.Provider>
   );

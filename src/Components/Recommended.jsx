@@ -25,6 +25,7 @@ const Recommended = ({ param }) => {
       state: { idDisplay: videoId },
     });
   };
+
   console.log(idDisplay);
   const dataGetter = dataSetter.flatMap((datas) => {
     return datas.results

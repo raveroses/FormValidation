@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useFetch from "./api/UseFetch";
 import { useEffect, useContext, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
@@ -9,10 +9,7 @@ import MoviePageHeader from "./MoviesPageHeader";
 import Recommended from "./Recommended";
 export default function DisplayVideo() {
   const { endpointChanger } = useContext(UserContext);
-  const [idDisplay, setIdDisplay] = useState("");
-  const handleDisplay = (id) => {
-    setIdDisplay(Number(id));
-  };
+
   let param = useParams();
   const location = useLocation();
   const idgetter = location?.state?.idDisplay || "No message received";
@@ -27,7 +24,13 @@ export default function DisplayVideo() {
   useEffect(() => {
     fetchMovie();
   }, [param.videoId, location.state]);
-  console.log(endpointChanger);
+  console.log(dataSetter);
+
+  const navigate = useNavigate();
+  const handleVideoPlayId = (id) => {
+    const videoId = id;
+    navigate("/trailer", { state: { videoIdd: videoId } });
+  };
 
   // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
   // https://api.themoviedb.org/3/tv/63770?api_key=b23cab54b01ec0634aae0d6fc905411b
@@ -88,9 +91,12 @@ export default function DisplayVideo() {
               </div>
             </div>
             <p className="text-[13px] pr-4">{item.overview}</p>
-            <div className="flex gap-1 items-center rounded-3xl bg-gray-600 opacity-[0.7] p-2 w-[130px] md:p-1 md:w-[150px]">
+            <div
+              className="flex gap-1 items-center rounded-3xl bg-gray-600 opacity-[0.7] p-2 w-[130px] md:p-1 md:w-[150px] cursor-pointer"
+              onClick={() => handleVideoPlayId(item.imdb_id)}
+            >
               <p>
-                <RiPlayFill className="text-[20px] text-white" />
+                <RiPlayFill className="text-[20px] text-white " />
               </p>
               <p> Watch Now</p>
             </div>
