@@ -16,9 +16,9 @@ export default function DisplayVideo() {
   console.log(idgetter);
   const convert = Number(param.videoId.replace(":", "").trim());
   const { dataSetter, loading, fetchMovie } = useFetch(
-    `https://api.themoviedb.org/3/${endpointChanger ? "tv" : "movie"}/${
-      convert || idgetter
-    }?api_key=b23cab54b01ec0634aae0d6fc905411b`
+    `https://api.themoviedb.org/3/${
+      (endpointChanger ? "tv" : "movie") && (idgetter ? "movie" : "tv")
+    }/${convert || idgetter}?api_key=b23cab54b01ec0634aae0d6fc905411b`
   );
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function DisplayVideo() {
           <img
             src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`}
             alt="hero-mage"
-            className=" w-full h-[950px] md:h-[500px] object-center object-cover"
+            className=" w-full h-[1100px] md:h-[500px] object-center object-cover"
           />
         </div>
         <div className="text-white absolute top-30 flex flex-col gap-20 w-full px-4 md:px-8 md:flex-row">

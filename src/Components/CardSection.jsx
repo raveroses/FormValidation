@@ -12,7 +12,7 @@ import Trending from "./Trending";
 import AllMovie from "./AllMovie";
 import { NavLink } from "react-router-dom";
 export default function CardSection({ handleEndPointChanger }) {
-  const { dataSetter, loading, fetchMovie } = useFetch(
+  const { dataSetter, loading, fetchMovie, search } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
@@ -61,6 +61,7 @@ export default function CardSection({ handleEndPointChanger }) {
     });
   });
 
+  console.log(search);
   return (
     <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-1 md:px-8">
       <section className="Popular">

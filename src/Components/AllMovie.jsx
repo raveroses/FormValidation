@@ -17,7 +17,7 @@ export default function AllMovie() {
       const getYear = dates.getFullYear();
       const rate = items.vote_average;
       const shortenRate = rate.toFixed(1);
-      console.log(items);
+      // console.log(items);
       return (
         <div key={index} className="group relative ">
           <img

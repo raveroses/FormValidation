@@ -1,3 +1,4 @@
+import UserContext from "../Context.jsx/UserContext";
 import { BiCameraMovie } from "react-icons/bi";
 import { FaMicrophone } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
@@ -22,6 +23,7 @@ export default function MoviePageHeader() {
           type="text"
           placeholder="Search "
           className=" w-[100px] outline-none md:w-[300px]"
+          onChange={handleInput}
         />
         <FaMicrophone className="text-[20px]" />
       </form>

@@ -10,7 +10,7 @@ import UserContext from "../Context.jsx/UserContext";
 
 export default function TV() {
   const { handleEndPointChanger } = useContext(UserContext);
-  const { dataSetter, loading, fetchMovie } = useFetch(
+  const { dataSetter, loading, fetchMovie, search } = useFetch(
     "https://api.themoviedb.org/3/tv/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
@@ -60,6 +60,16 @@ export default function TV() {
       );
     });
   });
+
+  const movieSearch = search.flatMap((data) => {
+    return data.results.find((dataSearch, index) => {
+      if (dataSearch.title === "TMZ") {
+        console.log(dataSearch);
+      }
+    });
+  });
+
+  console.log(search);
   return (
     <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-4 md:px-8">
       <section className="trending">

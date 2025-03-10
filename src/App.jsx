@@ -225,6 +225,13 @@ function App() {
     console.log("...working");
     setEndPointChanger("tv");
   };
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleInput = (e) => {
+    setSearchInput(e.target.value.trim().toLowerCase());
+  };
+
+  console.log(searchInput);
   return (
     <UserContext.Provider
       value={{
@@ -245,6 +252,8 @@ function App() {
         userDetail,
         endpointChanger,
         handleEndPointChanger,
+        searchInput,
+        handleInput,
       }}
     >
       <Routes>
