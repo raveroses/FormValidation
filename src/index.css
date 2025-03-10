@@ -24,37 +24,3 @@ body {
   width: 100%;
   /* opacity: 0.8; */
 }
-
-@media only screen and (max-width: 600px) {
-  .tv {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 3;
-    border: 1px solid red;
-  }
-  .tvs {
-    top: 100px;
-    padding-left: 2px;
-  }
-  .tvss {
-    padding-right: 0;
-  }
-  /* .movie{
-
-  } */
-}
-
-@media only screen and (min-width: 768px) {
-  .tv {
-    grid-template-columns: 1fr 1fr 1fr;
-    /* position: absolute;
-    top: 0px; */
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  .tv {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    /* position: absolute;
-    top: 0px; */
-  }
-}

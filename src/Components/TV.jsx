@@ -31,7 +31,7 @@ export default function TV() {
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
             loading="lazy"
-            className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
+            className="w-[190px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
           <NavLink to={`/video/:${items.id}`}>
             <MdPlayCircle
@@ -39,12 +39,12 @@ export default function TV() {
               onClick={handleEndPointChanger}
             />
           </NavLink>
-          <div className="tvs absolute left-0 top-42 px-3 md:top-40">
-            <p className="tvss text-white text-[16px] font-bold-semibold pr-6">
+          <div className="tvs absolute left-0 px-3 top-42 md:top-45">
+            <p className="tvss text-white text-[13px] font-bold-semibold w-full">
               {items?.name}
             </p>
             <div className="flex items-center gap-9 text-gray-200">
-              <div className="flex items-center gap-2 font-medium">
+              <div className="flex items-center md:gap-2 font-medium">
                 <p className="text-[13px]">{getYear}</p>
                 <span className="flex items-center">
                   <TiStarFullOutline className="text-[13px]" />
@@ -52,7 +52,6 @@ export default function TV() {
                 </span>
               </div>
               <p className="text-[13px] border-1 px-1 border-gray-400 rounded">
-                {" "}
                 tv
               </p>
             </div>
@@ -68,7 +67,7 @@ export default function TV() {
           TV-Series
         </h2>
 
-        <div className="tv grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-6 ">
+        <div className="tv grid grid-cols-2 gap-2 md:grid-cols-6 md:gap-6 ">
           {check}
         </div>
       </section>

@@ -86,14 +86,14 @@ export default function DisplayVideo() {
               </p>
               <p> Trailer</p>
             </div>
-            <div className="flex gap-10">
-              <div className="border-1 border-white rounded-2xl px-2 py-[2px] text-center text-[16px]">
+            <div className="flex gap-7 md:gap-10">
+              <div className="border-1 border-white rounded-2xl px-4 py-[4px] text-center text-[14px] md:px-2 md:py-[2px] ">
                 Horror
               </div>
-              <div className="border-1 border-white rounded-2xl px-2 py-[2px] text-center text-[16px]">
+              <div className="w-[120px] border-1 border-white rounded-2xl  text-center text-[14px] md:text-[16px] px-2 py-[5px] md:py-[2px] w-[150px]">
                 Science Fiction
               </div>
-              <div className="border-1 border-white rounded-2xl px-2 py-[2px] text-center text-[16px]">
+              <div className="border-1 border-white rounded-2xl  px-4 py-[4px] text-center text-[14px] md:text-[16px] md:px-2 md:py-[2px]">
                 Thriller
               </div>
             </div>

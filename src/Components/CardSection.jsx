@@ -38,11 +38,11 @@ export default function CardSection({ handleEndPointChanger }) {
           <NavLink to={`/video/:${items.id}`}>
             <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
           </NavLink>
-          <div className=" absolute left-0 top-42 md:top-50 px-3">
-            <p className="text-white  text-[16px] font-bold-semibold">
+          <div className=" absolute left-0 top-47 md:top-47 px-3">
+            <p className="text-white  text-[13px] font-bold-semibold">
               {items?.title}
             </p>
-            <div className="flex items-center justify-between text-gray-200">
+            <div className="flex items-center gap-8 md:justify-between text-gray-200">
               <div className="flex items-center gap-2 font-medium">
                 <p className="text-[13px]">{getYear}</p>
                 <span className="flex items-center">
@@ -62,7 +62,7 @@ export default function CardSection({ handleEndPointChanger }) {
   });
 
   return (
-    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-4 md:px-8">
+    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-1 md:px-8">
       <section className="Popular">
         <h2 className="text-white text-[25px] border-b-1 border-white  w-[150px] mb-7">
           Popular

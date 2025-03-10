@@ -34,11 +34,11 @@ export default function Trending() {
           <NavLink to={`/video/${items.id}`}>
             <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
           </NavLink>
-          <div className=" absolute left-0 top-42 md:top-50 px-3">
-            <p className="text-white  text-[16px] font-bold-semibold">
+          <div className=" absolute left-0 top-42 md:top-44 px-3">
+            <p className="text-white  text-[13px] font-bold-semibold">
               {items?.title}
             </p>
-            <div className="flex items-center justify-between text-gray-200">
+            <div className="flex items-center gap-7 md:justify-between text-gray-200">
               <div className="flex items-center gap-2 font-medium">
                 <p className="text-[13px]">{getYear}</p>
                 <span className="flex items-center">
