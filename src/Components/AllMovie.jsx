@@ -30,11 +30,11 @@ export default function AllMovie() {
             {" "}
             <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
           </NavLink>
-          <div className=" absolute left-0 top-42 px-3 md:top-45">
-            <p className="text-white  text-[16px] font-bold-semibold">
+          <div className="movie absolute left-0 top-42 px-3 md:top-45">
+            <p className="tvss text-white  text-[16px] font-bold-semibold pr-6">
               {items?.title}
             </p>
-            <div className="flex items-center justify-between text-gray-200">
+            <div className="flex items-center gap-3 text-gray-200">
               <div className="flex items-center gap-2 font-medium">
                 <p className="text-[13px]">{getYear}</p>
                 <span className="flex items-center">
@@ -59,7 +59,7 @@ export default function AllMovie() {
           Movies
         </h2>
 
-        <div className="grid grid-cols-2  gap-3 md:grid-cols-6 md:gap-6 ">
+        <div className=" tv grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-6 ">
           {check}
         </div>
       </section>

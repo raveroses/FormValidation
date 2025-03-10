@@ -39,11 +39,11 @@ export default function TV() {
               onClick={handleEndPointChanger}
             />
           </NavLink>
-          <div className=" absolute left-0 top-42 px-3 md:top-45">
-            <p className="text-white  text-[16px] font-bold-semibold">
+          <div className="tvs absolute left-0 top-42 px-3 md:top-40">
+            <p className="tvss text-white text-[16px] font-bold-semibold pr-6">
               {items?.name}
             </p>
-            <div className="flex items-center justify-between text-gray-200">
+            <div className="flex items-center gap-9 text-gray-200">
               <div className="flex items-center gap-2 font-medium">
                 <p className="text-[13px]">{getYear}</p>
                 <span className="flex items-center">
@@ -68,7 +68,7 @@ export default function TV() {
           TV-Series
         </h2>
 
-        <div className="grid grid-cols-2  gap-3 md:grid-cols-6 md:gap-6 ">
+        <div className="tv grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-6 ">
           {check}
         </div>
       </section>

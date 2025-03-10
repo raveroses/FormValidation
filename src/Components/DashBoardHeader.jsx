@@ -11,6 +11,7 @@ import { RiMovie2AiFill } from "react-icons/ri";
 import { FaStar } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardHeader() {
   const { dataSetter, loading, fetchMovie } = useFetch(
@@ -20,7 +21,12 @@ export default function DashboardHeader() {
   useEffect(() => {
     fetchMovie();
   }, []);
-
+  const navigate = useNavigate();
+  const handleVideoPlay = (id, title, pic) => {
+    navigate("/trailer", {
+      state: { videoId: id, videoTitle: title, videobackgroundImage: pic },
+    });
+  };
   const check = dataSetter.flatMap((item) => {
     return item.results.slice(0, 6).map((items, index) => {
       const rate = items.vote_average.toFixed(1);
@@ -58,7 +64,7 @@ export default function DashboardHeader() {
                   Thriller
                 </div>
               </div>
-              <div className="text-gray-400 pt-4 text-semi-bold hidden md:block">
+              <div className="text-gray-400 pt-4 text-semi-bold hidden md:block w-[70%]">
                 {items.overview}
               </div>
               <div className="flex items-center gap-3 mt-6 md:gap-5">
@@ -66,6 +72,9 @@ export default function DashboardHeader() {
                   className="flex items-center gap-2 border-1 border-blue-600 py-2 rounded-3xl px-4 text-blue-600 cursor-pointer 
                 hover:bg-blue-600 hover:border-none hover:text-white hover:transition hover:transition-ease-in-out 
                 hover:transition-hover hover:delay-100 hover:duration-400 md:py-2 md:px-8"
+                  onClick={() =>
+                    handleVideoPlay(items.id, items.title, items.backdrop_path)
+                  }
                 >
                   <FaPlay />
                   <p> Watch Now</p>
@@ -75,6 +84,9 @@ export default function DashboardHeader() {
                   className="flex items-center gap-2 border-1 py-2 rounded-3xl px-10 text-gray-400 border-gray-400 cursor-pointer
                 hover:bg-white hover:border-none hover:text-black hover:transition hover:transition-ease-in-out 
                 hover:transition-hover hover:delay-100 hover:duration-400 md:px-14"
+                  onClick={() =>
+                    handleVideoPlay(items.id, items.title, items.backdrop_path)
+                  }
                 >
                   <GoVideo />
                   <p> Trailer</p>

@@ -27,9 +27,15 @@ export default function DisplayVideo() {
   console.log(dataSetter);
 
   const navigate = useNavigate();
-  const handleVideoPlayId = (id) => {
+  const handleVideoPlayId = (id, backgroundImage, title) => {
     const videoId = id;
-    navigate("/trailer", { state: { videoIdd: videoId } });
+    navigate("/trailer", {
+      state: {
+        videoIdd: videoId,
+        backgroundImages: backgroundImage,
+        titles: title,
+      },
+    });
   };
 
   // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
@@ -40,6 +46,7 @@ export default function DisplayVideo() {
     const getYear = dates.getFullYear();
     const rate = item.vote_average;
     // const shortenRate = rate.toFixed(1);
+
     return (
       <div key={item.id}>
         <div className="relative">
@@ -64,13 +71,13 @@ export default function DisplayVideo() {
             </h2>
             <div className="smally flex gap-5 text-[16px]">
               <p>{getYear}</p>
-              <p className="flex items-center gap-1">
+              <div className="flex items-center gap-1">
                 <span>
                   <PiClockCountdown className="text-[20px]" />
                 </span>
 
                 <p>{item.runtime}</p>
-              </p>
+              </div>
               <p className="flex items-center gap-1">
                 <span>
                   <BsStarFill className="text-[20px]" />
@@ -93,7 +100,13 @@ export default function DisplayVideo() {
             <p className="text-[13px] pr-4">{item.overview}</p>
             <div
               className="flex gap-1 items-center rounded-3xl bg-gray-600 opacity-[0.7] p-2 w-[130px] md:p-1 md:w-[150px] cursor-pointer"
-              onClick={() => handleVideoPlayId(item.imdb_id)}
+              onClick={() =>
+                handleVideoPlayId(
+                  item.imdb_id,
+                  item.poster_path,
+                  item.original_title
+                )
+              }
             >
               <p>
                 <RiPlayFill className="text-[20px] text-white " />
