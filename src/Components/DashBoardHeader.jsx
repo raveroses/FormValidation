@@ -1,5 +1,5 @@
 // import SwiperPlace from "./SwiperPlace";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "./api/UseFetch";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,7 +12,7 @@ import { FaStar } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-
+import UserContext from "../Context.jsx/UserContext";
 export default function DashboardHeader() {
   const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
@@ -102,6 +102,8 @@ export default function DashboardHeader() {
   useEffect(() => {
     check;
   }, []);
+
+  // console.log(search);
   return (
     <div>
       <Swiper

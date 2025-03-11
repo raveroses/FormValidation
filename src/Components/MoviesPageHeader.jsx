@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import UserContext from "../Context.jsx/UserContext";
 import { BiCameraMovie } from "react-icons/bi";
 import { FaMicrophone } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 export default function MoviePageHeader() {
+  const { handleInput } = useContext(UserContext);
   return (
     <header className="w-full flex justify-between items-center absolute top-0 py-3 px-4 md:px-8 md:py-0 z-[6]">
       <div className="flex justify-start flex-col w-[30%] md:w-[20%]">

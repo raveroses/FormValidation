@@ -1,6 +1,6 @@
 import { TiStarFullOutline } from "react-icons/ti";
 import { MdPlayCircle } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "./api/UseFetch";
 import TV from "./TV";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -11,15 +11,26 @@ import "swiper/css/pagination";
 import Trending from "./Trending";
 import AllMovie from "./AllMovie";
 import { NavLink } from "react-router-dom";
-export default function CardSection({ handleEndPointChanger }) {
-  const { dataSetter, loading, fetchMovie, search } = useFetch(
+import UserContext from "../Context.jsx/UserContext";
+export default function CardSection({
+  handleEndPointChanger,
+  save,
+  handleSave,
+}) {
+  const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
+  const { searchInput } = useContext(UserContext);
   useEffect(() => {
     fetchMovie();
   }, []);
 
+  useEffect(() => {
+    handleSave(dataSetter);
+  }, [dataSetter]);
+
+  // console.log(save);
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
       const dates = new Date(items.release_date);
@@ -60,8 +71,19 @@ export default function CardSection({ handleEndPointChanger }) {
       );
     });
   });
+  // const serchWork = search.flatMap((data) => {
+  //   return data.results.find((data, index) => {
+  //     const checkInput = searchInput.split(" ")[0];
+  //     console.log(checkInput);
+  //     if (
+  //       data.original_title.toLowerCase() === searchInput ||
+  //       data.original_title.toLowerCase().split(" ")[0] === checkInput
+  //     ) {
+  //       console.log(data || "no data");
+  //     }
+  //   });
+  // });
 
-  console.log(search);
   return (
     <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-1 md:px-8">
       <section className="Popular">
@@ -101,14 +123,18 @@ export default function CardSection({ handleEndPointChanger }) {
         </Swiper>
       </section>
       <section className="trending">
-        <Trending />
+        <Trending handleSave={handleSave} save={save} />
       </section>
 
       <section className="movies">
-        <AllMovie />
+        <AllMovie handleSave={handleSave} save={save} />
       </section>
       <section className="TV">
-        <TV handleEndPointChanger={handleEndPointChanger} />
+        <TV
+          handleEndPointChanger={handleEndPointChanger}
+          handleSave={handleSave}
+          save={save}
+        />
       </section>
     </div>
   );

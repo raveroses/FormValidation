@@ -8,8 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-export default function Trending() {
-  const { dataSetter, loading, fetchMovie, search } = useFetch(
+export default function Trending({ handleSave, save }) {
+  const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/trending/movie/day?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
@@ -17,7 +17,12 @@ export default function Trending() {
     fetchMovie();
   }, []);
 
-  console.log(search);
+  useEffect(() => {
+    handleSave(dataSetter);
+  }, [dataSetter]);
+
+  // console.log(save);
+
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
       const dates = new Date(items.release_date);
