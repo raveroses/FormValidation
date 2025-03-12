@@ -231,7 +231,6 @@ function App() {
     setSearchInput(e.target.value.trim().toLowerCase());
   };
 
-  console.log(searchInput);
   return (
     <UserContext.Provider
       value={{
