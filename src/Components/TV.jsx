@@ -8,19 +8,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import UserContext from "../Context.jsx/UserContext";
 
-export default function TV({ handleSave, save }) {
-  const { handleEndPointChanger, searchInput } = useContext(UserContext);
-  const { dataSetter, loading, fetchMovie, search } = useFetch(
+export default function TV() {
+  const { handleEndPointChanger } = useContext(UserContext);
+  const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/tv/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
   useEffect(() => {
     fetchMovie();
   }, []);
-
-  useEffect(() => {
-    handleSave(dataSetter);
-  }, [dataSetter]);
 
   // console.log(dataSetter);
 

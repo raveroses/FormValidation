@@ -13,7 +13,6 @@ export default function useFetch(url) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
 
       const data = await response.json();
-      setSearch((prev) => [...prev, data]);
       setDataSetter([data]);
     } catch (err) {
       toast.error(err);

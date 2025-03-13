@@ -12,11 +12,7 @@ import Trending from "./Trending";
 import AllMovie from "./AllMovie";
 import { NavLink } from "react-router-dom";
 import UserContext from "../Context.jsx/UserContext";
-export default function CardSection({
-  handleEndPointChanger,
-  save,
-  handleSave,
-}) {
+export default function CardSection({ handleEndPointChanger }) {
   const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
@@ -26,11 +22,6 @@ export default function CardSection({
     fetchMovie();
   }, []);
 
-  useEffect(() => {
-    handleSave(dataSetter);
-  }, [dataSetter]);
-
-  // console.log(save);
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
       const dates = new Date(items.release_date);
@@ -123,18 +114,14 @@ export default function CardSection({
         </Swiper>
       </section>
       <section className="trending">
-        <Trending handleSave={handleSave} save={save} />
+        <Trending />
       </section>
 
       <section className="movies">
-        <AllMovie handleSave={handleSave} save={save} />
+        <AllMovie />
       </section>
       <section className="TV">
-        <TV
-          handleEndPointChanger={handleEndPointChanger}
-          handleSave={handleSave}
-          save={save}
-        />
+        <TV handleEndPointChanger={handleEndPointChanger} />
       </section>
     </div>
   );

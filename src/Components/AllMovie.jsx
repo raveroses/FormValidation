@@ -3,7 +3,7 @@ import useFetch from "./api/UseFetch";
 import { TiStarFullOutline } from "react-icons/ti";
 import { MdPlayCircle } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-export default function AllMovie({ handleSave, save }) {
+export default function AllMovie() {
   const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/trending/all/day?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
@@ -11,9 +11,6 @@ export default function AllMovie({ handleSave, save }) {
   useEffect(() => {
     fetchMovie();
   }, []);
-  useEffect(() => {
-    handleSave(dataSetter);
-  }, [dataSetter]);
 
   // console.log(save);
   const check = dataSetter.flatMap((item) => {

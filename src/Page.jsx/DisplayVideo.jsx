@@ -1,12 +1,12 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useFetch from "./api/UseFetch";
+import useFetch from "../Components/api/UseFetch";
 import { useEffect, useContext, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
 import { PiClockCountdown } from "react-icons/pi";
 import { BsStarFill } from "react-icons/bs";
 import { RiPlayFill } from "react-icons/ri";
-import MoviePageHeader from "./MoviesPageHeader";
-import Recommended from "./Recommended";
+import MoviePageHeader from "../Components/MoviesPageHeader";
+import Recommended from "../Components/Recommended";
 export default function DisplayVideo() {
   const { endpointChanger } = useContext(UserContext);
 
