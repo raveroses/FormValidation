@@ -1,6 +1,6 @@
 // import SwiperPlace from "./SwiperPlace";
 import { useContext, useEffect, useState } from "react";
-import useFetch from "../api/UseFetch";
+import useFetch from "../api/useFetch";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
