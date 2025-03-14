@@ -51,7 +51,10 @@ export default function DisplayVideo() {
       <div key={item.id}>
         <div className="relative">
           <img
-            src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/original/${
+              item.backdrop_path ||
+              (item.backdrop_path === null && item.poster_path)
+            }`}
             alt="hero-mage"
             className=" w-full h-[1100px] md:h-[500px] object-center object-cover"
           />

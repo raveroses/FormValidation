@@ -52,10 +52,10 @@ export default function MovieSearchPage() {
 
   const movieMap = dataSetter.flatMap((data) => {
     return data.results.map((movie, index) => {
-      const dates = new Date(movie.release_date || movie.first_air_date);
+      const dates = new Date(movie?.release_date || movie?.first_air_date);
       const getYear = dates.getFullYear();
-      const rate = movie.vote_average;
-      const shortenRate = rate.toFixed(1);
+      const rate = movie?.vote_average;
+      const shortenRate = rate?.toFixed(1);
       console.log(movie);
       return (
         <div key={index} className="group relative ">
@@ -90,10 +90,10 @@ export default function MovieSearchPage() {
     });
   });
   return (
-    <div className="relative bg-black w-full h-[1200px] pb-[30px]">
+    <div className="bg-black w-full min-h-screen">
       <MoviePageHeader />
-      <div className="w-full h-screen absolute top-17 px-3 md:px-8 md:top-30 ">
-        <form className="w-full h-[45px] flex items-center gap-5 rounded bg-[#212529] my-7 px-5  md:gap-6 md:h-[60px]">
+      <div className="py-25 px-5 md:py-40 md:px-10">
+        <form className="w-full h-[45px] flex items-center gap-5 rounded bg-[#212529] px-5 md:gap-6 md:h-[60px] ">
           <div
             className="flex items-center gap-5 cursor-pointer md:gap-2"
             onClick={handleHide}
@@ -106,7 +106,7 @@ export default function MovieSearchPage() {
             type="text"
             value={searchInput}
             className="py-4 w-[80%] outline-none border-none text-2xl font-normal
-             text-white placeholder:text-base placeholder:text-white placeholder:font-normal 
+             text-white placeholder:text-[19px] placeholder:text-white placeholder:font-normal 
              placeholder:px-7 md:placeholder:px-7 md:placeholder:font-semibold md:placeholder:text-2xl"
             placeholder="Enter your keywords..."
             onChange={handleSearchIinput}
@@ -120,10 +120,8 @@ export default function MovieSearchPage() {
         >
           Results will show after you type.
         </p>
-        <section>
-          <div className=" tv grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-6  ">
-            {movieMap}
-          </div>
+        <section className="tv grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-6  py-20">
+          {movieMap}
         </section>
       </div>
     </div>
