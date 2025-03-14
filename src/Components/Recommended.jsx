@@ -1,5 +1,5 @@
 import { TiStarFullOutline } from "react-icons/ti";
-import useFetch from "./api/UseFetch";
+import useFetch from "../api/UseFetch";
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdPlayCircle } from "react-icons/md";

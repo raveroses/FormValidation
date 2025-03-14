@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MoviePageHeader from "../Components/MoviesPageHeader";
-import useFetch from "../Components/api/UseFetch";
+import useFetch from "../api/useFetch";
 import { RxCaretDown } from "react-icons/rx";
 import { NavLink } from "react-router-dom";
 import { TiStarFullOutline } from "react-icons/ti";

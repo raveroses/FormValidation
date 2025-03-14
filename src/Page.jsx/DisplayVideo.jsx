@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useFetch from "../Components/api/UseFetch";
+import useFetch from "../api/useFetch";
 import { useEffect, useContext, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
 import { PiClockCountdown } from "react-icons/pi";

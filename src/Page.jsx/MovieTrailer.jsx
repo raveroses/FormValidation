@@ -1,6 +1,6 @@
 import Iframe from "react-iframe";
 import { FaPlay } from "react-icons/fa";
-import useFetch from "../Components/api/UseFetch";
+import useFetch from "../api/useFetch";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 const MovieTrailer = () => {

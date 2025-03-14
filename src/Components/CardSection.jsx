@@ -1,7 +1,7 @@
 import { TiStarFullOutline } from "react-icons/ti";
 import { MdPlayCircle } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
-import useFetch from "./api/UseFetch";
+import useFetch from "../api/UseFetch";
 import TV from "./TV";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
