@@ -46,7 +46,7 @@ export default function DisplayVideo() {
     const getYear = dates.getFullYear();
     const rate = item.vote_average;
     // const shortenRate = rate.toFixed(1);
-
+    console.log(item);
     return (
       <div key={item.id}>
         <div className="relative">

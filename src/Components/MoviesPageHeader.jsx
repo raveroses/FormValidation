@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 export default function MoviePageHeader() {
   return (
-    <header className="w-full flex justify-between items-center absolute top-4 py-3 px-4 md:px-8 md:py-0 z-[6]">
+    <header className="w-full flex justify-between items-center absolute top-4 py-0 px-4 md:px-8 md:py-0 z-[6] md:py-3">
       <div className="flex justify-start flex-col w-[30%] md:w-[20%]">
         <BiCameraMovie className="text-[45px] text-white ml-[20px] md:text-[40px]" />
         <div className="text-white text-[25px] font-bold hidden md:block">

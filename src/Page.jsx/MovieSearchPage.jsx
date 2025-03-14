@@ -1,25 +1,130 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MoviePageHeader from "../Components/MoviesPageHeader";
 import useFetch from "../Components/api/UseFetch";
+import { RxCaretDown } from "react-icons/rx";
+import { NavLink } from "react-router-dom";
+import { TiStarFullOutline } from "react-icons/ti";
+import { MdPlayCircle } from "react-icons/md";
 export default function MovieSearchPage() {
-  const { dataSetter, loading, fetchMovie } = useFetch("");
+  const [extract, setExtract] = useState("Movies");
+  // const [endpointChanger,setEndPointChanger]= useState('')
+  const categoryChecker = extract === "Movies" ? "movie" : "tv";
+  console.log(categoryChecker);
+  const [searchInput, setSearchInput] = useState("");
+  const { dataSetter, loading, fetchMovie } = useFetch(
+    `https://api.themoviedb.org/3/search/${categoryChecker}?api_key=b23cab54b01ec0634aae0d6fc905411b&query=${searchInput.trim()}`
+  );
+  // https://api.themoviedb.org/3/search/movie?api_key=b23cab54b01ec0634aae0d6fc905411b
   useEffect(() => {
     fetchMovie();
-  }, []);
-  return (
-    <div className="relative bg-black w-full h-screen">
-      <MoviePageHeader />
-      <div className="w-full h-screen absolute top-30 bg-gray-600 opacity-20 px-8">
-        <div className="w-full h-[60px] bg-gray-100 opacity-60 my-7 ">
-          <div></div>
-          <form>
-            <input
-              type="text"
-              className="py-4 w-[80%] outline-none border-none placeholder:text-4xl placeholder:text-white placeholder:font-extrabold"
-              placeholder="Enter your keywords"
-            />
-          </form>
+  }, [extract, searchInput]);
+
+  const handleSearchIinput = (e) => {
+    setSearchInput(e.target.value);
+  };
+  console.log(searchInput);
+  const [hide, setHide] = useState(false);
+  const handleHide = () => {
+    setHide((prev) => !prev);
+  };
+
+  const handleExtractCategory = (id) => {
+    setExtract(id);
+    setHide(false);
+  };
+  const category = ["Movies", "Tv-Series"];
+  const catList = category.map((category, index) => {
+    return (
+      <div
+        className={`flex flex-col gap-4 text-white w-[170px] h-[40px] rounded py-1 px-3 bg-[#212529] 
+      cursor-pointer md:py-3 md:h-[50px] ${hide ? "block" : "hidden"}`}
+        key={index}
+      >
+        <div
+          className="hover:bg-gray-600 hover-opacity-30 px-2"
+          onClick={() => handleExtractCategory(category)}
+        >
+          {category}
         </div>
+      </div>
+    );
+  });
+
+  const movieMap = dataSetter.flatMap((data) => {
+    return data.results.map((movie, index) => {
+      const dates = new Date(movie.release_date || movie.first_air_date);
+      const getYear = dates.getFullYear();
+      const rate = movie.vote_average;
+      const shortenRate = rate.toFixed(1);
+      console.log(movie);
+      return (
+        <div key={index} className="group relative ">
+          <img
+            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            alt="card-movie-image"
+            loading="lazy"
+            className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
+          />
+          <NavLink to={`/video/${movie.id}`}>
+            <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+          </NavLink>
+          <div className="movie absolute left-0 top-42 px-3 md:top-47">
+            <p className="tvss text-white  text-[13px] font-bold-semibold">
+              {movie?.title || movie.original_name}
+            </p>
+            <div className="flex items-center gap-3 text-gray-200">
+              <div className="flex items-center gap-2 font-medium">
+                <p className="text-[13px]">{getYear}</p>
+                <span className="flex items-center">
+                  <TiStarFullOutline className="text-[13px]" />
+                  <p className="text-[12px]"> {shortenRate}</p>
+                </span>
+              </div>
+              <p className="text-[13px] border-1 px-1 border-gray-400 rounded">
+                movie
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  });
+  return (
+    <div className="relative bg-black w-full h-[1200px] pb-[30px]">
+      <MoviePageHeader />
+      <div className="w-full h-screen absolute top-17 px-3 md:px-8 md:top-30 ">
+        <form className="w-full h-[45px] flex items-center gap-5 rounded bg-[#212529] my-7 px-5  md:gap-6 md:h-[60px]">
+          <div
+            className="flex items-center gap-5 cursor-pointer md:gap-2"
+            onClick={handleHide}
+          >
+            <p className="text-white text-base">{extract}</p>
+            <RxCaretDown className="text-white text-[20px] font-semibold" />
+          </div>
+          <div className="w-[1px] h-[30px] bg-white md:h-[50px]"></div>
+          <input
+            type="text"
+            value={searchInput}
+            className="py-4 w-[80%] outline-none border-none text-2xl font-normal
+             text-white placeholder:text-base placeholder:text-white placeholder:font-normal 
+             placeholder:px-7 md:placeholder:px-7 md:placeholder:font-semibold md:placeholder:text-2xl"
+            placeholder="Enter your keywords..."
+            onChange={handleSearchIinput}
+          />
+        </form>
+        {catList}
+        <p
+          className={`text-center text-white text-base md:text-lg ${
+            movieMap ? "hidden" : "block"
+          }`}
+        >
+          Results will show after you type.
+        </p>
+        <section>
+          <div className=" tv grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-6  ">
+            {movieMap}
+          </div>
+        </section>
       </div>
     </div>
   );
