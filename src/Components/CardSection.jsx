@@ -30,7 +30,11 @@ export default function CardSection({ handleEndPointChanger }) {
       const shortenRate = rate.toFixed(1);
 
       return (
-        <SwiperSlide key={index} className="group relative">
+        <SwiperSlide
+          key={index}
+          className="group relative"
+          onClick={(e) => e.currentTarget.classList.toggle("hovered")}
+        >
           <img
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
@@ -62,6 +66,7 @@ export default function CardSection({ handleEndPointChanger }) {
       );
     });
   });
+
   // const serchWork = search.flatMap((data) => {
   //   return data.results.find((data, index) => {
   //     const checkInput = searchInput.split(" ")[0];
