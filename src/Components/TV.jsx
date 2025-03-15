@@ -46,8 +46,8 @@ export default function TV() {
           <NavLink to={`/video/:${items.id}`}>
             <MdPlayCircle
               className={`${
-                activeCard === index ? "play-icon" : ""
-              }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
+                activeCard === index ? "block" : "hidden"
+              } text-blue-500 absolute top-20 left-15 text-[40px] md:group-hover:block md:hidden`}
               onClick={handleEndPointChanger}
             />
           </NavLink>

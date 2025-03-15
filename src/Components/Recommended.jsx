@@ -30,7 +30,7 @@ const Recommended = ({ param }) => {
   const [activeCard, setActiveCard] = useState(null);
 
   const handleCardClick = (id) => {
-    setActiveCard((prev) => (prev === id ? null : id));
+    setActiveCard(id);
   };
   const dataGetter = dataSetter.flatMap((datas) => {
     return datas.results
@@ -56,8 +56,8 @@ const Recommended = ({ param }) => {
               <NavLink to={`/video/:${data.id}`}>
                 <MdPlayCircle
                   className={`${
-                    activeCard === index ? "play-icon" : ""
-                  }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
+                    activeCard === index ? "block" : "hidden"
+                  } text-blue-500 absolute top-20 left-15 text-[40px] md:group-hover:block md:hidden`}
                   onClick={() => handleDisplay(data.id)}
                 />
               </NavLink>

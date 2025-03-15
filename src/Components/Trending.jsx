@@ -46,7 +46,7 @@ export default function Trending() {
             <MdPlayCircle
               className={`${
                 activeCard === items.id ? "block" : "hidden"
-              } text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
+              } text-blue-500 absolute top-20 left-15 text-[40px] md:group-hover:block md:hidden`}
             />
           </NavLink>
           <div className=" absolute left-0 top-42 md:top-44 px-3">
