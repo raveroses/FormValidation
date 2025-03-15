@@ -39,10 +39,10 @@ export default function CardSection({ handleEndPointChanger }) {
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
             loading="lazy"
-            className="play-icon w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
+            className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
           <NavLink to={`/video/:${items.id}`}>
-            <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+            <MdPlayCircle className="play-icon text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
           </NavLink>
           <div className=" absolute left-0 top-47 md:top-47 px-3">
             <p className="text-white  text-[13px] font-bold-semibold">
