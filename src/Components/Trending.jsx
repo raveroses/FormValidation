@@ -17,6 +17,12 @@ export default function Trending() {
     fetchMovie();
   }, []);
 
+  const [activeCard, setActiveCard] = useState(null);
+
+  const handleCardClick = (id) => {
+    setActiveCard((prev) => (prev === id ? null : id));
+  };
+
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
       const dates = new Date(items.release_date);
@@ -25,7 +31,11 @@ export default function Trending() {
       const shortenRate = rate.toFixed(1);
 
       return (
-        <SwiperSlide key={index} className="group relative">
+        <SwiperSlide
+          key={index}
+          className="group relative"
+          onClick={() => handleCardClick(index)}
+        >
           <img
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
@@ -33,7 +43,11 @@ export default function Trending() {
             className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
           <NavLink to={`/video/${items.id}`}>
-            <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+            <MdPlayCircle
+              className={`${
+                activeCard === index ? "play-icon" : ""
+              }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
+            />
           </NavLink>
           <div className=" absolute left-0 top-42 md:top-44 px-3">
             <p className="text-white  text-[13px] font-bold-semibold">

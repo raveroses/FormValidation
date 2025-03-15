@@ -11,7 +11,11 @@ export default function AllMovie() {
   useEffect(() => {
     fetchMovie();
   }, []);
+  const [activeCard, setActiveCard] = useState(null);
 
+  const handleCardClick = (id) => {
+    setActiveCard((prev) => (prev === id ? null : id));
+  };
   // console.log(save);
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
@@ -21,7 +25,11 @@ export default function AllMovie() {
       const shortenRate = rate.toFixed(1);
       // console.log(items);
       return (
-        <div key={index} className="group relative ">
+        <div
+          key={index}
+          className="group relative "
+          onClick={() => handleCardClick(index)}
+        >
           <img
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
@@ -29,7 +37,11 @@ export default function AllMovie() {
             className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
           <NavLink to={`/video/${items.id}`}>
-            <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
+            <MdPlayCircle
+              className={`${
+                activeCard === index ? "play-icon" : ""
+              }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
+            />
           </NavLink>
           <div className="movie absolute left-0 top-42 px-3 md:top-47">
             <p className="tvss text-white  text-[13px] font-bold-semibold">

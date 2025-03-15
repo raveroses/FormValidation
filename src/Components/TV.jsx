@@ -19,7 +19,11 @@ export default function TV() {
   }, []);
 
   // console.log(dataSetter);
+  const [activeCard, setActiveCard] = useState(null);
 
+  const handleCardClick = (id) => {
+    setActiveCard((prev) => (prev === id ? null : id));
+  };
   const check = dataSetter.flatMap((item) => {
     return item.results.map((items, index) => {
       const dates = new Date(items.first_air_date);
@@ -28,7 +32,11 @@ export default function TV() {
       const shortenRate = rate.toFixed(1);
 
       return (
-        <div key={index} className="group relative ">
+        <div
+          key={index}
+          className="group relative "
+          onClick={() => handleCardClick(index)}
+        >
           <img
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
@@ -37,7 +45,9 @@ export default function TV() {
           />
           <NavLink to={`/video/:${items.id}`}>
             <MdPlayCircle
-              className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden"
+              className={`${
+                activeCard === index ? "play-icon" : ""
+              }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
               onClick={handleEndPointChanger}
             />
           </NavLink>

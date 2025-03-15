@@ -27,16 +27,25 @@ const Recommended = ({ param }) => {
   };
 
   console.log(idDisplay);
+  const [activeCard, setActiveCard] = useState(null);
+
+  const handleCardClick = (id) => {
+    setActiveCard((prev) => (prev === id ? null : id));
+  };
   const dataGetter = dataSetter.flatMap((datas) => {
     return datas.results
       .filter((data) => data.id !== param && data.id !== idDisplay)
-      .map((data) => {
+      .map((data, index) => {
         const dates = new Date(data?.first_air_date || data?.release_date);
         const getYear = dates.getFullYear();
         const rate = data.vote_average.toFixed(1);
 
         return (
-          <SwiperSlide className="py-5 " key={data.id}>
+          <SwiperSlide
+            className="py-5 "
+            key={data.id}
+            onClick={() => handleCardClick(index)}
+          >
             <div className="relative group">
               <img
                 src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
@@ -46,7 +55,9 @@ const Recommended = ({ param }) => {
               />
               <NavLink to={`/video/:${data.id}`}>
                 <MdPlayCircle
-                  className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden"
+                  className={`${
+                    activeCard === index ? "play-icon" : ""
+                  }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
                   onClick={() => handleDisplay(data.id)}
                 />
               </NavLink>
