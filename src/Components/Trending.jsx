@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../api/useFetch";
 import { NavLink } from "react-router-dom";
 import { TiStarFullOutline } from "react-icons/ti";
