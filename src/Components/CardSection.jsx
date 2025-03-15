@@ -33,13 +33,13 @@ export default function CardSection({ handleEndPointChanger }) {
         <SwiperSlide
           key={index}
           className="group relative"
-          onClick={(e) => e.currentTarget.classList.toggle("hovered")}
+          onClick={(e) => e.currentTarget.classList.toggle("play-icon")}
         >
           <img
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
             alt="card-movie-image"
             loading="lazy"
-            className="w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
+            className="play-icon w-[180px] opacity-[0.5] rounded-xl group-hover:opacity-[0.2] group-hover:w-[170px] group-hover:delay-100 group-hover:duration-500 group-hover:transition-all"
           />
           <NavLink to={`/video/:${items.id}`}>
             <MdPlayCircle className="text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden" />
