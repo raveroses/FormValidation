@@ -34,7 +34,7 @@ export default function Trending() {
         <SwiperSlide
           key={index}
           className="group relative"
-          onClick={() => handleCardClick(index)}
+          onClick={() => handleCardClick(items.id)}
         >
           <img
             src={`https://image.tmdb.org/t/p/original/${items.poster_path}`}
@@ -45,8 +45,8 @@ export default function Trending() {
           <NavLink to={`/video/${items.id}`}>
             <MdPlayCircle
               className={`${
-                activeCard === index ? "play-icon" : ""
-              }text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
+                activeCard === items.id ? "block" : "hidden"
+              } text-blue-500 absolute top-20 left-15 text-[40px] group-hover:block hidden`}
             />
           </NavLink>
           <div className=" absolute left-0 top-42 md:top-44 px-3">
