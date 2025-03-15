@@ -20,7 +20,7 @@ export default function Trending() {
   const [activeCard, setActiveCard] = useState(null);
 
   const handleCardClick = (id) => {
-    setActiveCard((prev) => (prev === id ? null : id));
+    setActiveCard(id);
   };
 
   const check = dataSetter.flatMap((item) => {
