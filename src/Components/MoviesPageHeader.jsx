@@ -10,7 +10,7 @@ export default function MoviePageHeader() {
   };
   return (
     <header
-      className="w-full flex justify-between items-center absolute top-2 py-0 px-2 
+      className="w-full flex justify-between items-center absolute top-2 py-0 px-0 
     md:px-8 md:py-0 z-[6]"
     >
       <div

@@ -104,7 +104,7 @@ export default function MovieSearchPage() {
     <div className="bg-black w-full min-h-screen">
       <MoviePageHeader />
       <div className="py-25 px-5 md:py-40 md:px-10">
-        <form className="w-full h-[45px] flex items-center gap-5 rounded bg-[#212529] px-5 md:gap-6 md:h-[60px] ">
+        <form className="w-full h-[45px] flex items-center gap-5 rounded bg-[#212529] px-2 md:gap-6 md:h-[60px] ">
           <div
             className="flex items-center gap-5 cursor-pointer md:gap-2"
             onClick={handleHide}
@@ -132,7 +132,7 @@ export default function MovieSearchPage() {
         </div>
         <p
           className={`text-center text-white text-base md:text-lg ${
-            movieMap ? "hidden" : "block"
+            searchInput ? "hidden" : "block"
           }`}
         >
           Results will show after you type.

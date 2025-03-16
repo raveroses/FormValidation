@@ -38,15 +38,10 @@ export default function DisplayVideo() {
     });
   };
 
-  // https://api.themoviedb.org/3/movie/1126166?api_key=b23cab54b01ec0634aae0d6fc905411b
-  // https://api.themoviedb.org/3/tv/63770?api_key=b23cab54b01ec0634aae0d6fc905411b
-
-  const dataReturn = dataSetter.map((item, index) => {
+  const dataReturn = dataSetter.map((item) => {
     const dates = new Date(item?.first_air_date || item?.release_date);
     const getYear = dates.getFullYear();
     const rate = item.vote_average;
-    // const shortenRate = rate.toFixed(1);
-    console.log(item);
     return (
       <div key={item.id}>
         <div className="relative">
