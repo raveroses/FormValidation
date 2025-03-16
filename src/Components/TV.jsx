@@ -73,21 +73,8 @@ export default function TV() {
     });
   });
 
-  // const serchWork = search.flatMap((data) => {
-  //   return data.results.find((data) => {
-  //     const checkInput = searchInput.split(" ")[0];
-  //     console.log(checkInput);
-  //     if (
-  //       data.original_name.toLowerCase() === searchInput ||
-  //       data.original_name.toLowerCase().split(" ")[0] === checkInput
-  //     ) {
-  //       console.log(data || "no data");
-  //     }
-  //   });
-  // });
-
   return (
-    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-4 md:px-8">
+    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-2 md:px-8">
       <section className="trending">
         <h2 className="text-white text-[25px] border-b-1 border-white  w-[150px] mb-7">
           TV-Series

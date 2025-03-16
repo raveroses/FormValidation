@@ -76,21 +76,8 @@ export default function CardSection({ handleEndPointChanger }) {
     });
   });
 
-  // const serchWork = search.flatMap((data) => {
-  //   return data.results.find((data, index) => {
-  //     const checkInput = searchInput.split(" ")[0];
-  //     console.log(checkInput);
-  //     if (
-  //       data.original_title.toLowerCase() === searchInput ||
-  //       data.original_title.toLowerCase().split(" ")[0] === checkInput
-  //     ) {
-  //       console.log(data || "no data");
-  //     }
-  //   });
-  // });
-
   return (
-    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-1 md:px-8">
+    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-2 md:px-8">
       <section className="Popular">
         <h2 className="text-white text-[25px] border-b-1 border-white  w-[150px] mb-7">
           Popular

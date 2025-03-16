@@ -33,24 +33,25 @@ const MovieTrailer = () => {
     setShowVideo(true);
   };
   return (
-    <div className="relative bg-black h-screen px-4 pt-[90px] md:px-8 md:pt-[40px] ">
+    <div className="relative bg-black min-h-screen px-4 pt-[90px] md:px-8 md:pt-[40px] ">
       <img
         src={`https://image.tmdb.org/t/p/original/${poster}`}
-        alt="bacground-image"
-        className={`w-full h-[550px] object-cover object-top ${
+        alt="Movie Poster"
+        loading="lazy"
+        className={`w-full h-[550px] object-cover opacity-30 ${
           showVideo && "hidden"
         }`}
       />
+
       <div
-        className={`absolute top-80 left-[48%] text-white ${
+        className={`absolute  text-white top-80 left-40 ${
           showVideo && "hidden"
-        }`}
+        }  md:top-70 md:left-150`}
       >
         <FaPlay
-          className="text-[30px] cursor-pointer ml-5"
+          className="text-[30px] cursor-pointer text-center"
           onClick={handlePlay}
         />
-        <p className="text-center uppercase">{title}</p>
       </div>
 
       {showVideo && (

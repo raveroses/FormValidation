@@ -35,11 +35,7 @@ export default function MovieSearchPage() {
   const category = ["Movies", "Tv-Series"];
   const catList = category.map((category, index) => {
     return (
-      <div
-        className={`flex flex-col gap-4 text-white w-[170px] h-[40px] rounded py-1 px-3 bg-[#212529] 
-      cursor-pointer md:py-3 md:h-[50px] ${hide ? "block" : "hidden"}`}
-        key={index}
-      >
+      <div key={index}>
         <div
           className="hover:bg-gray-600 hover-opacity-30 px-2"
           onClick={() => handleExtractCategory(category)}
@@ -127,7 +123,13 @@ export default function MovieSearchPage() {
             onChange={handleSearchIinput}
           />
         </form>
-        {catList}
+        <div
+          className={`flex flex-col gap-4 text-white w-[170px] h-[70px] rounded my-5 px-2 bg-[#212529] 
+      cursor-pointer  md:h-[90px] ${hide ? "block" : "hidden"}`}
+        >
+          {" "}
+          {catList}
+        </div>
         <p
           className={`text-center text-white text-base md:text-lg ${
             movieMap ? "hidden" : "block"

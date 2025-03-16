@@ -65,7 +65,7 @@ export default function AllMovie() {
     });
   });
   return (
-    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-4 md:px-8">
+    <div className="pt-[90px] border-b-1 md:pt-[40px] bg-black px-2 md:px-8">
       <section className="trending">
         <h2 className="text-white text-[25px] border-b-1 border-white  w-[150px] mb-7">
           Movies
