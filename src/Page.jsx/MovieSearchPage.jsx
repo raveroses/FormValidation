@@ -131,7 +131,7 @@ export default function MovieSearchPage() {
           {catList}
         </div>
         <p
-          className={`text-center text-white text-base md:text-lg ${
+          className={`text-center text-white text-base md:text-lg pt-5 ${
             searchInput ? "hidden" : "block"
           }`}
         >
