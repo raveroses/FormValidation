@@ -12,12 +12,12 @@ import { FaStar } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../Context.jsx/UserContext";
-export default function DashboardHeader() {
+import UserProfile from "./UserProfile";
+export default function DashboardHeader({ user }) {
   const { dataSetter, loading, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
-  // https://api.themoviedb.org/3/movie/550?api_key=b23cab54b01ec0634aae0d6fc905411b
+
   useEffect(() => {
     fetchMovie();
   }, []);
@@ -123,7 +123,8 @@ export default function DashboardHeader() {
         loop={true}
       >
         {check}
-        <MoviePageHeader />
+        <MoviePageHeader user={user} />
+        <UserProfile user={user} />
       </Swiper>
       {/* <div className="absolute top-0 w-full min-h-screen bg-black opacity-30"></div> */}
     </div>

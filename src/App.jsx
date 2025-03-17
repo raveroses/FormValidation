@@ -102,9 +102,9 @@ function App() {
         userDetail.email.trim(),
         userDetail.password.trim()
       );
-      const user = userCredential.user;
+      const user2 = userCredential.user;
 
-      console.log(user);
+      console.log(user2);
 
       setUserDetail({
         profileName: "",
@@ -254,6 +254,7 @@ function App() {
         handleEndPointChanger,
         searchInput,
         handleInput,
+        user,
       }}
     >
       <Routes>

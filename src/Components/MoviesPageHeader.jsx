@@ -1,10 +1,18 @@
-import { BiCameraMovie } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
+import { RxCaretDown } from "react-icons/rx";
+import useLocalStorage from "../api/useLocalStorage";
+import { useEffect } from "react";
 
-export default function MoviePageHeader() {
+export default function MoviePageHeader({ user }) {
   const navigate = useNavigate();
+  const [storeValue, setLocalStorages] = useLocalStorage("save", user);
 
+  useEffect(() => {
+    setLocalStorages(user);
+  }, [user]);
+
+  console.log(storeValue);
   const handleNavigate = () => {
     navigate("/dashboard");
   };
@@ -31,11 +39,16 @@ export default function MoviePageHeader() {
             <FaSearch className="text-[15px]" />
           </div>
         </NavLink>
-        <img
-          src="images/user-image.jpeg"
-          alt="user-image"
-          className="w-[45px] rounded-full ml-0 md:ml-7 md:w-[50px]"
-        />
+        <div className="relative">
+          <img
+            src={`${storeValue?.user?.photoURL}`}
+            alt="user-image"
+            className="w-[45px] rounded-full ml-0 md:ml-7 md:w-[50px]"
+          />
+          <div className="text-lg absolute bottom-0 right-0 bg-gray-300 rounded-full text-center">
+            <RxCaretDown className="font-bold text-red-400" />
+          </div>
+        </div>
       </div>
     </header>
   );
