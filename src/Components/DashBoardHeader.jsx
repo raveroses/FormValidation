@@ -126,7 +126,6 @@ export default function DashboardHeader({ user }) {
         <MoviePageHeader user={user} />
         <UserProfile user={user} />
       </Swiper>
-      {/* <div className="absolute top-0 w-full min-h-screen bg-black opacity-30"></div> */}
     </div>
   );
 }
