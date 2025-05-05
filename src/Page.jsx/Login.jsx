@@ -26,7 +26,6 @@ export default function Login() {
   });
 
   const [attempt, setAttempt] = useState(5);
-  console.log(attempt);
   const handleValidation = () => {
     if (!loginDeet?.password.trim() || !loginDeet?.email.trim()) {
       toast.error("Please fill all required field");
@@ -61,7 +60,6 @@ export default function Login() {
         toast.error("Incorrect Password");
         setAttempt((prev) => prev - 1);
       }
-      console.log(errorCode);
     }
   };
   const handleOnChange = (e) => {
@@ -83,22 +81,18 @@ export default function Login() {
   }, [attempt]);
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    console.log("clicked");
     if (attempt === 0) {
       try {
         await sendPasswordResetEmail(auth, loginDeet?.email.trim());
 
         toast.success("Link sent to your E-mail");
-        // ..
       } catch (error) {
         const errorMessage = error.message;
-        // ..
         toast.error(errorMessage);
       }
     }
   };
 
-  console.log(loginDeet);
   return (
     <div className="w-full p-3 h-auto flex flex-col mx-auto mt-[60px] md:w-[500px] ">
       <div className="text-[20px] font-bold text-center">

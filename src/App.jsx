@@ -20,8 +20,17 @@ function App() {
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
   const navigate = useNavigate();
-
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(() => {
+    try {
+      const getter = localStorage.getItem("userDETAILS");
+      return getter ? JSON.parse(getter) : {};
+    } catch (e) {
+      console.error("Failed to parse userDETAILS:", e);
+      localStorage.removeItem("userDETAILS"); // clean up
+      return {};
+    }
+  });
+  // console.log(user);
   const GoogleSignUp = async () => {
     try {
       const signn = await signInWithPopup(auth, provider);
@@ -32,23 +41,19 @@ function App() {
       // IdP data available using getAdditionalUserInfo(result)
       // ...
       navigate("/dashboard");
-      setUser((prev) => ({ ...prev, user }));
+      // setUser((prev) => ({ ...prev, user }));
+      setUser((prev) => {
+        const setter = { ...prev, user };
+        localStorage.setItem("userDETAILS", JSON.stringify(setter));
+        return setter;
+      });
+
       console.log(`Token=> ${token}`);
     } catch (error) {
-      // // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // // The email of the user's account used.
-      // const email = error.customData.email;
-      // // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
-  console.log(user);
   // THE SIGNUP PAGE PASTE
 
   const [userDetail, setUserDetail] = useState(() => {
@@ -92,7 +97,6 @@ function App() {
     return true;
   };
 
-  //   const [user, setUser] = useState({});
   const handleSubmission = async (e) => {
     e.preventDefault();
     if (!handleValidation()) return;

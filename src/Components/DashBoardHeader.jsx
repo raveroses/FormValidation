@@ -1,5 +1,5 @@
 // import SwiperPlace from "./SwiperPlace";
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import useFetch from "../api/useFetch";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,7 +14,7 @@ import { GoVideo } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import UserProfile from "./UserProfile";
 export default function DashboardHeader({ user }) {
-  const { dataSetter, loading, fetchMovie } = useFetch(
+  const { dataSetter, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
 
