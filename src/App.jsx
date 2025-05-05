@@ -24,7 +24,7 @@ function App() {
   const [nameSignUp, setNameSignUp] = useState(() => {
     const getter = localStorage.getItem("NameSignUp");
     try {
-      return getter ? JSON.parse(getter) : { name: "" };
+      return getter ? JSON.parse(getter) : { name: "", password: "" };
     } catch (e) {
       console.error("Error parsing localStorage NameSignUp:", e);
       localStorage.removeItem("NameSignUp");
@@ -247,7 +247,11 @@ function App() {
   useEffect(() => {
     setNameSignUp((prev) => {
       try {
-        const saver = { ...prev, name: userDetail.profileName };
+        const saver = {
+          ...prev,
+          name: userDetail.profileName,
+          password: userDetail.password,
+        };
         localStorage.setItem("NameSignUp", JSON.stringify(saver));
         return saver;
       } catch (e) {

@@ -34,13 +34,23 @@ export default function UserProfile({ user, nameSignUp }) {
   const eyeTogglingTwo = () => {
     setEyeBoo((prev) => ({ ...prev, eyeBooTwo: !prev.eyeBooTwo }));
   };
+
+  const [openPasswordInput, setOpenPasswordInput] = useState(false);
+
+  const handleOpeningPasswordInput = () => {
+    setOpenPasswordInput(true);
+  };
+
+  const handleClosePasswordInput = () => {
+    setOpenPasswordInput(false);
+  };
   console.log(eyeBoo.eyeBooOne);
   return (
     <div
       className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
      rounded md:w-[350px] md:h-[320px] md:right-8 md:mx-0 md:top-20"
     >
-      <div className="first hidden">
+      <div className={`first ${openPasswordInput ? "hidden" : "block"}}`}>
         {" "}
         <div
           className="text-white w-[330px] h-[125px] bg-white rounded max-w-full shadow-[2px_2px_2px_2px]
@@ -68,7 +78,12 @@ export default function UserProfile({ user, nameSignUp }) {
             <div className="bg-gray-300 rounded-full p-3">
               <IoSettings className="text-[20px]" />
             </div>
-            <h4 className="font-semibold text-[16px]">Change Password</h4>
+            <h4
+              className="font-semibold text-[16px]"
+              onClick={handleOpeningPasswordInput}
+            >
+              Change Password
+            </h4>
           </div>
           <div className="setting flex items-center gap-3 mt-3 py-1 px-1 rounded hover:bg-gray-200 transition delay-100 transition-all cursor-pointer">
             <div className="bg-gray-300 rounded-full p-3">
@@ -80,9 +95,12 @@ export default function UserProfile({ user, nameSignUp }) {
           </div>
         </div>
       </div>
-      <div className="second">
+      <div className={`second ${!openPasswordInput ? "block" : "hidden"}`}>
         <div className="head flex items-center gap-5">
-          <FaArrowLeftLong className="text-[18px]" />
+          <FaArrowLeftLong
+            className="text-[18px]"
+            onClick={handleClosePasswordInput}
+          />
           <h3 className="font-bold text-[25px]">Change Password</h3>
         </div>
         <form className="flex flex-col mt-10 gap-[10px]">
@@ -120,6 +138,9 @@ export default function UserProfile({ user, nameSignUp }) {
               className="outline-none border-1 border-gray-500 px-[5px] py-[4px] rounded"
             />
           </div>
+          <button className="bg-gray-400 py-[5px] rounded font-semibold">
+            Change Password
+          </button>
         </form>
       </div>
     </div>
