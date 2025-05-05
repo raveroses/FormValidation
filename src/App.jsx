@@ -7,7 +7,7 @@ import SignUp from "./Page.jsx/SignUp";
 import Dashboard from "./Page.jsx/Dashboard";
 import FacebookSign from "./Components/FirebaseConfig/Facebook";
 import Login from "./Page.jsx/Login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,9 +20,12 @@ function App() {
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
   const navigate = useNavigate();
+
+  // THE POP UP DETAILS localStorage
   const [user, setUser] = useState(() => {
     try {
       const getter = localStorage.getItem("userDETAILS");
+      // console.log(JSON.parse(getter));
       return getter ? JSON.parse(getter) : {};
     } catch (e) {
       console.error("Failed to parse userDETAILS:", e);
@@ -30,31 +33,8 @@ function App() {
       return {};
     }
   });
-  // console.log(user);
-  const GoogleSignUp = async () => {
-    try {
-      const signn = await signInWithPopup(auth, provider);
-      const credential = GoogleAuthProvider.credentialFromResult(signn);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = signn.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-      navigate("/dashboard");
-      // setUser((prev) => ({ ...prev, user }));
-      setUser((prev) => {
-        const setter = { ...prev, user };
-        localStorage.setItem("userDETAILS", JSON.stringify(setter));
-        return setter;
-      });
 
-      console.log(`Token=> ${token}`);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  // THE SIGNUP PAGE PASTE
+  // THE SIGNUP PAGE DETAILS PASTE
 
   const [userDetail, setUserDetail] = useState(() => {
     const user = localStorage.getItem("details");
@@ -70,6 +50,26 @@ function App() {
           year: "",
         };
   });
+  // console.log(user);
+  const GoogleSignUp = async () => {
+    try {
+      const signn = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(signn);
+      const token = credential.accessToken;
+      const user = signn.user;
+      navigate("/dashboard");
+      // setUser((prev) => ({ ...prev, user }));
+      setUser((prev) => {
+        const setter = { ...prev, user };
+        localStorage.setItem("userDETAILS", JSON.stringify(setter));
+        return setter;
+      });
+    } catch (error) {
+      localStorage.removeItem("userDETAILS");
+      toast.error(error.message);
+      return {};
+    }
+  };
 
   const [checko, setChecko] = useState("");
   const handleCheck = (e) => {
@@ -108,8 +108,6 @@ function App() {
       );
       const user2 = userCredential.user;
 
-      console.log(user2);
-
       setUserDetail({
         profileName: "",
         phoneNumber: "",
@@ -119,15 +117,12 @@ function App() {
         month: "",
         year: "",
       });
-      localStorage.removeItem("details");
+
       toast.success("Account created successfully");
       navigate("/login");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
-      console.log(errorCode);
-      console.log(errorMessage);
       toast.error(errorMessage);
     }
   };
@@ -225,7 +220,7 @@ function App() {
     );
   });
   const [endpointChanger, setEndPointChanger] = useState("");
-  console.log(endpointChanger);
+  // console.log(endpointChanger);
   const handleEndPointChanger = () => {
     console.log("...working");
     setEndPointChanger("tv");
@@ -236,6 +231,23 @@ function App() {
     setSearchInput(e.target.value.trim().toLowerCase());
   };
 
+  // SAVING THE USERDETAILS
+
+  useEffect(() => {
+    setUserDetail((prev) => {
+      try {
+        const saver = { ...prev, userDetail };
+        localStorage.setItem("details", JSON.stringify(saver));
+        return saver;
+      } catch (e) {
+        localStorage.removeItem("details");
+        console.log(e.message);
+        return {};
+      }
+    });
+  }, []);
+
+  console.log(userDetail);
   return (
     <UserContext.Provider
       value={{

@@ -19,7 +19,6 @@ export default function SignUp() {
     handleSubmission,
     userDetail,
   } = useContext(UserContext);
-  console.log(userDetail);
   const [arrow, setArrow] = useState({
     dayArrow: false,
     monthArrow: false,

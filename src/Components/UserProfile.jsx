@@ -1,7 +1,7 @@
 import { IoMdContact } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { LuLogOut } from "react-icons/lu";
-export default function UserProfile({ user }) {
+export default function UserProfile({ user, userDetail }) {
   return (
     <div
       className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
@@ -16,13 +16,13 @@ export default function UserProfile({ user }) {
           <div className="flex items-center gap-3 border-b-1 border-black pb-1">
             <div className="image">
               <img
-                src={`${user?.user?.photoURL}`}
+                src={`${user?.user?.photoURL || "images/cartoon.jpeg"}`}
                 alt="profile-image"
                 className="rounded-full w-[50px]"
               />
             </div>
             <div className="name text-black font-semibold text-[16px]">
-              {user?.user?.displayName}
+              {user?.user?.displayName || userDetail?.profileName}
             </div>
           </div>
           <div className="profile text-black flex items-center gap-1 justify-center bg-gray-300 w-[90%] mt-3 mx-4 py-1 rounded">

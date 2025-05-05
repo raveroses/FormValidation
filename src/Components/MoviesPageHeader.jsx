@@ -4,7 +4,7 @@ import { RxCaretDown } from "react-icons/rx";
 import useLocalStorage from "../api/useLocalStorage";
 import { useEffect } from "react";
 
-export default function MoviePageHeader({ user }) {
+export default function MoviePageHeader({ user, userDetail }) {
   const navigate = useNavigate();
   const [storeValue, setLocalStorages] = useLocalStorage("save", user);
 
@@ -41,7 +41,7 @@ export default function MoviePageHeader({ user }) {
         </NavLink>
         <div className="relative">
           <img
-            src={`${storeValue?.user?.photoURL}`}
+            src={`${storeValue?.user?.photoURL || "images/cartoon.jpeg"}`}
             alt="user-image"
             className="w-[45px] rounded-full ml-0 md:ml-7 md:w-[50px]"
           />
