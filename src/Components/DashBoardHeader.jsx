@@ -13,7 +13,7 @@ import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import UserProfile from "./UserProfile";
-export default function DashboardHeader({ user, userDetail }) {
+export default function DashboardHeader({ user, nameSignUp }) {
   const { dataSetter, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
@@ -124,7 +124,7 @@ export default function DashboardHeader({ user, userDetail }) {
       >
         {check}
         <MoviePageHeader user={user} />
-        <UserProfile user={user} userDetail={userDetail} />
+        <UserProfile user={user} nameSignUp={nameSignUp} />
       </Swiper>
     </div>
   );

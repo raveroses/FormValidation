@@ -20,6 +20,17 @@ function App() {
   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
   const navigate = useNavigate();
+  // NAME SIGN UP save
+  const [nameSignUp, setNameSignUp] = useState(() => {
+    const getter = localStorage.getItem("NameSignUp");
+    try {
+      return getter ? JSON.parse(getter) : { name: "" };
+    } catch (e) {
+      console.error("Error parsing localStorage NameSignUp:", e);
+      localStorage.removeItem("NameSignUp");
+      return { name: "" };
+    }
+  });
 
   // THE POP UP DETAILS localStorage
   const [user, setUser] = useState(() => {
@@ -58,7 +69,6 @@ function App() {
       const token = credential.accessToken;
       const user = signn.user;
       navigate("/dashboard");
-      // setUser((prev) => ({ ...prev, user }));
       setUser((prev) => {
         const setter = { ...prev, user };
         localStorage.setItem("userDETAILS", JSON.stringify(setter));
@@ -108,7 +118,9 @@ function App() {
       );
       const user2 = userCredential.user;
 
-      setUserDetail({
+      navigate("/login");
+
+      const emptyDetails = {
         profileName: "",
         phoneNumber: "",
         email: "",
@@ -116,10 +128,9 @@ function App() {
         day: "",
         month: "",
         year: "",
-      });
-
-      toast.success("Account created successfully");
-      navigate("/login");
+      };
+      setUserDetail(emptyDetails);
+      localStorage.setItem("details", JSON.stringify(emptyDetails));
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -139,7 +150,7 @@ function App() {
       return userSaved;
     });
   };
-
+  console.log(userDetail);
   const [gender, setGender] = useState(() => {
     const save = localStorage.getItem("gender");
     return save ? JSON.parse(save) : "";
@@ -234,20 +245,20 @@ function App() {
   // SAVING THE USERDETAILS
 
   useEffect(() => {
-    setUserDetail((prev) => {
+    setNameSignUp((prev) => {
       try {
-        const saver = { ...prev, userDetail };
-        localStorage.setItem("details", JSON.stringify(saver));
+        const saver = { ...prev, name: userDetail.profileName };
+        localStorage.setItem("NameSignUp", JSON.stringify(saver));
         return saver;
       } catch (e) {
-        localStorage.removeItem("details");
+        localStorage.removeItem("NameSignUp");
         console.log(e.message);
         return {};
       }
     });
   }, []);
 
-  console.log(userDetail);
+  console.log(nameSignUp);
   return (
     <UserContext.Provider
       value={{
@@ -271,6 +282,7 @@ function App() {
         searchInput,
         handleInput,
         user,
+        nameSignUp,
       }}
     >
       <Routes>

@@ -3,11 +3,11 @@ import CardSection from "../Components/CardSection";
 import UserContext from "../Context.jsx/UserContext";
 import { useContext } from "react";
 export default function Dashboard({ handleEndPointChanger }) {
-  const { user, userDetail } = useContext(UserContext);
+  const { user, nameSignUp } = useContext(UserContext);
 
   return (
     <div className="bg-black pb-30">
-      <DashboardHeader user={user} userDetail={userDetail} />
+      <DashboardHeader user={user} nameSignUp={nameSignUp} />
       <CardSection handleEndPointChanger={handleEndPointChanger} />
     </div>
   );

@@ -4,7 +4,7 @@ import { RxCaretDown } from "react-icons/rx";
 import useLocalStorage from "../api/useLocalStorage";
 import { useEffect } from "react";
 
-export default function MoviePageHeader({ user, userDetail }) {
+export default function MoviePageHeader({ user, nameSignUp }) {
   const navigate = useNavigate();
   const [storeValue, setLocalStorages] = useLocalStorage("save", user);
 
@@ -12,7 +12,6 @@ export default function MoviePageHeader({ user, userDetail }) {
     setLocalStorages(user);
   }, [user]);
 
-  console.log(storeValue);
   const handleNavigate = () => {
     navigate("/dashboard");
   };
