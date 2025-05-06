@@ -9,6 +9,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 export default function UserProfile({ user, nameSignUp }) {
+  console.log(nameSignUp.name);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -40,17 +41,16 @@ export default function UserProfile({ user, nameSignUp }) {
   const handleOpeningPasswordInput = () => {
     setOpenPasswordInput(true);
   };
-
   const handleClosePasswordInput = () => {
     setOpenPasswordInput(false);
   };
-  console.log(eyeBoo.eyeBooOne);
+
   return (
     <div
       className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
      rounded md:w-[350px] md:h-[320px] md:right-8 md:mx-0 md:top-20"
     >
-      <div className={`first ${openPasswordInput ? "hidden" : "block"}}`}>
+      <div className={`first ${openPasswordInput ? "hidden" : "block"}`}>
         {" "}
         <div
           className="text-white w-[330px] h-[125px] bg-white rounded max-w-full shadow-[2px_2px_2px_2px]
@@ -85,17 +85,22 @@ export default function UserProfile({ user, nameSignUp }) {
               Change Password
             </h4>
           </div>
-          <div className="setting flex items-center gap-3 mt-3 py-1 px-1 rounded hover:bg-gray-200 transition delay-100 transition-all cursor-pointer">
-            <div className="bg-gray-300 rounded-full p-3">
+          <div
+            className="setting flex items-center gap-3 mt-3 py-1 px-1 rounded hover:bg-gray-200 
+          transition delay-100 transition-all cursor-pointer"
+            onClick={handleSignOut}
+          >
+            <div
+              className="bg-gray-300 rounded-full p-3"
+              onClick={handleSignOut}
+            >
               <LuLogOut className="text-[20px]" />
             </div>
-            <h4 className="font-semibold text-[16px]" onClick={handleSignOut}>
-              Log Out
-            </h4>
+            <h4 className="font-semibold text-[16px]">Log Out</h4>
           </div>
         </div>
       </div>
-      <div className={`second ${!openPasswordInput ? "block" : "hidden"}`}>
+      <div className={`second ${openPasswordInput ? "block" : "hidden"}`}>
         <div className="head flex items-center gap-5">
           <FaArrowLeftLong
             className="text-[18px]"

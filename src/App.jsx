@@ -262,7 +262,9 @@ function App() {
     });
   }, []);
 
-  console.log(nameSignUp);
+  console.log(nameSignUp.name);
+  console.log(userDetail.profileName);
+  console.log(userDetail.password);
   return (
     <UserContext.Provider
       value={{
