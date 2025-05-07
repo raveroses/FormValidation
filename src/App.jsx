@@ -31,7 +31,6 @@ function App() {
       return {};
     }
   });
-  console.log(nameSignUp);
 
   // THE POP UP DETAILS localStorage
   const [user, setUser] = useState(() => {
@@ -118,7 +117,7 @@ function App() {
         userDetail.password.trim()
       );
       const user2 = userCredential.user;
-
+      localStorage.removeItem("userDETAILS");
       navigate("/login");
 
       // const emptyDetails = {
@@ -258,6 +257,8 @@ function App() {
       }
     });
   }, [userDetail.password, userDetail.profileName]);
+  console.log(nameSignUp);
+
   return (
     <UserContext.Provider
       value={{

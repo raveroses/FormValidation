@@ -9,10 +9,15 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useContext, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
-import auth from "./FirebaseConfig/FirebaseConfig";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import {
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
+} from "firebase/auth";
+
 export default function UserProfile({ user, nameSignUp }) {
   const { userDetail } = useContext(UserContext);
-  console.log(userDetail.password);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -52,7 +57,6 @@ export default function UserProfile({ user, nameSignUp }) {
     oldPassword: "",
     newPassWord: "",
   });
-  console.log(passwordChanger);
 
   const handlePasswordInput = (e) => {
     const { name, value } = e.target;
@@ -67,14 +71,32 @@ export default function UserProfile({ user, nameSignUp }) {
   //     // An error occurred
   //     // ...
   // });
-  console.log(auth);
 
   const handlePasswordChanger = (e) => {
     e.preventDefault();
-    if (passwordChanger.oldPassword === nameSignUp?.password) {
-      userDetail.password = passwordChanger.newPassWord;
-    }
+    const userAuth = auth.currentUser;
+
+    const cred = EmailAuthProvider.credential(
+      userAuth.email,
+      passwordChanger.oldPassword
+    );
+
+    reauthenticateWithCredential(userAuth, cred)
+      .then(() => {
+        // Use the modular updatePassword function
+        return updatePassword(userAuth, passwordChanger.newPassWord);
+      })
+      .then(() => {
+        toast.success("Password updated successfully!");
+        console.log("Password updated successfully!");
+      })
+      .catch((error) => {
+        console.error("Error updating password:", error);
+        toast.error(error);
+      });
   };
+  console.log(auth.currentUser);
+  console.log(nameSignUp);
   return (
     <div
       className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
@@ -95,7 +117,7 @@ export default function UserProfile({ user, nameSignUp }) {
               />
             </div>
             <div className="name text-black font-semibold text-[16px]">
-              {user?.user?.displayName || nameSignUp?.name}
+              {user?.user?.displayName || (nameSignUp && nameSignUp?.name)}
             </div>
           </div>
           <div className="profile text-black flex items-center gap-1 justify-center bg-gray-300 w-[90%] mt-3 mx-4 py-1 rounded cursor-pointer">
@@ -104,16 +126,15 @@ export default function UserProfile({ user, nameSignUp }) {
           </div>
         </div>
         <div>
-          <div className="setting flex items-center gap-3 mt-8 py-1 px-1 rounded hover:bg-gray-200 transition delay-100 transition-all cursor-pointer">
+          <div
+            className="setting flex items-center gap-3 mt-8 py-1 px-1 rounded hover:bg-gray-200
+           transition delay-100 transition-all cursor-pointer"
+            onClick={handleOpeningPasswordInput}
+          >
             <div className="bg-gray-300 rounded-full p-3">
               <IoSettings className="text-[20px]" />
             </div>
-            <h4
-              className="font-semibold text-[16px]"
-              onClick={handleOpeningPasswordInput}
-            >
-              Change Password
-            </h4>
+            <h4 className="font-semibold text-[16px]">Change Password</h4>
           </div>
           <div
             className="setting flex items-center gap-3 mt-3 py-1 px-1 rounded hover:bg-gray-200 
@@ -187,6 +208,7 @@ export default function UserProfile({ user, nameSignUp }) {
           </button>
         </form>
       </div>
+      <ToastContainer transition={Bounce} />
     </div>
   );
 }
