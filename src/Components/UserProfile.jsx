@@ -7,9 +7,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import UserContext from "../Context.jsx/UserContext";
+import auth from "./FirebaseConfig/FirebaseConfig";
 export default function UserProfile({ user, nameSignUp }) {
-  console.log(nameSignUp.name);
+  const { userDetail } = useContext(UserContext);
+  console.log(userDetail.password);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -45,6 +48,33 @@ export default function UserProfile({ user, nameSignUp }) {
     setOpenPasswordInput(false);
   };
 
+  const [passwordChanger, setPassWordChanger] = useState({
+    oldPassword: "",
+    newPassWord: "",
+  });
+  console.log(passwordChanger);
+
+  const handlePasswordInput = (e) => {
+    const { name, value } = e.target;
+    setPassWordChanger((prev) => ({ ...prev, [name]: value }));
+  };
+
+  //   const user = firebase.auth().currentUser;
+  // const newPassword = getASecureRandomPassword();
+  // user.updatePassword(newPassword).then(() => {
+  //     // Update successful.
+  // }).catch((error) => {
+  //     // An error occurred
+  //     // ...
+  // });
+  console.log(auth);
+
+  const handlePasswordChanger = (e) => {
+    e.preventDefault();
+    if (passwordChanger.oldPassword === nameSignUp?.password) {
+      userDetail.password = passwordChanger.newPassWord;
+    }
+  };
   return (
     <div
       className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
@@ -108,7 +138,10 @@ export default function UserProfile({ user, nameSignUp }) {
           />
           <h3 className="font-bold text-[25px]">Change Password</h3>
         </div>
-        <form className="flex flex-col mt-10 gap-[10px]">
+        <form
+          className="flex flex-col mt-10 gap-[10px]"
+          onSubmit={handlePasswordChanger}
+        >
           <div className="flex flex-col">
             <div className="labelflex flex justify-between">
               <label htmlFor="old" className="pb-[5px] font-semibold">
@@ -123,6 +156,9 @@ export default function UserProfile({ user, nameSignUp }) {
             <input
               type={`${eyeBoo.eyeBooOne ? "text" : "password"}`}
               id="old"
+              name="oldPassword"
+              value={passwordChanger?.oldPassword}
+              onChange={handlePasswordInput}
               className="outline-none border-1 border-gray-500 px-[5px] py-[4px] rounded"
             />
           </div>
@@ -140,6 +176,9 @@ export default function UserProfile({ user, nameSignUp }) {
             <input
               type={`${eyeBoo.eyeBooTwo ? "text" : "password"}`}
               id="new"
+              name="newPassWord"
+              value={passwordChanger?.newPassWord}
+              onChange={handlePasswordInput}
               className="outline-none border-1 border-gray-500 px-[5px] py-[4px] rounded"
             />
           </div>

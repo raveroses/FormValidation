@@ -28,9 +28,10 @@ function App() {
     } catch (e) {
       console.error("Error parsing localStorage NameSignUp:", e);
       localStorage.removeItem("NameSignUp");
-      return { name: "" };
+      return {};
     }
   });
+  console.log(nameSignUp);
 
   // THE POP UP DETAILS localStorage
   const [user, setUser] = useState(() => {
@@ -120,17 +121,17 @@ function App() {
 
       navigate("/login");
 
-      const emptyDetails = {
-        profileName: "",
-        phoneNumber: "",
-        email: "",
-        password: "",
-        day: "",
-        month: "",
-        year: "",
-      };
-      setUserDetail(emptyDetails);
-      localStorage.setItem("details", JSON.stringify(emptyDetails));
+      // const emptyDetails = {
+      //   profileName: "",
+      //   phoneNumber: "",
+      //   email: "",
+      //   password: "",
+      //   day: "",
+      //   month: "",
+      //   year: "",
+      // };
+      // setUserDetail(emptyDetails);
+      // localStorage.setItem("details", JSON.stringify(emptyDetails));
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -150,7 +151,6 @@ function App() {
       return userSaved;
     });
   };
-  console.log(userDetail);
   const [gender, setGender] = useState(() => {
     const save = localStorage.getItem("gender");
     return save ? JSON.parse(save) : "";
@@ -237,12 +237,9 @@ function App() {
     setEndPointChanger("tv");
   };
   const [searchInput, setSearchInput] = useState("");
-
   const handleInput = (e) => {
     setSearchInput(e.target.value.trim().toLowerCase());
   };
-
-  // SAVING THE USERDETAILS
 
   useEffect(() => {
     setNameSignUp((prev) => {
@@ -260,11 +257,7 @@ function App() {
         return {};
       }
     });
-  }, []);
-
-  console.log(nameSignUp.name);
-  console.log(userDetail.profileName);
-  console.log(userDetail.password);
+  }, [userDetail.password, userDetail.profileName]);
   return (
     <UserContext.Provider
       value={{
