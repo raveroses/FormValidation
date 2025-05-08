@@ -123,7 +123,7 @@ export default function DashboardHeader({ user, nameSignUp }) {
         loop={true}
       >
         {check}
-        <MoviePageHeader user={user} />
+        <MoviePageHeader user={user} nameSignUp={nameSignUp} />
         <UserProfile user={user} nameSignUp={nameSignUp} />
       </Swiper>
     </div>

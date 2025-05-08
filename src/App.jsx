@@ -1,14 +1,18 @@
 import "./index.css";
 import First from "./Page.jsx/First";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import auth from "./Components/FirebaseConfig/FirebaseConfig";
 import SignUp from "./Page.jsx/SignUp";
 import Dashboard from "./Page.jsx/Dashboard";
 import FacebookSign from "./Components/FirebaseConfig/Facebook";
 import Login from "./Page.jsx/Login";
 import { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from "./Context.jsx/UserContext";
@@ -116,7 +120,28 @@ function App() {
         userDetail.email.trim(),
         userDetail.password.trim()
       );
+
       const user2 = userCredential.user;
+      console.log(user2);
+      await updateProfile(userCredential.user, {
+        displayName: userDetail.profileName, // make sure you have this value
+      });
+
+      setNameSignUp((prev) => {
+        try {
+          const setter = {
+            ...prev,
+            name: auth.currentUser.displayName,
+            password: userDetail.password,
+          };
+          localStorage.setItem("NameSignUp", setter);
+
+          return setter;
+        } catch (e) {
+          console.log(e);
+          return { name: "", password: "" };
+        }
+      });
       localStorage.removeItem("userDETAILS");
       navigate("/login");
 
@@ -137,6 +162,7 @@ function App() {
       toast.error(errorMessage);
     }
   };
+  console.log(user);
 
   const [passwordToggling, setPasswordToggling] = useState(false);
   const passwordToggle = () => {

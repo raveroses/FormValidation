@@ -15,9 +15,10 @@ import {
   EmailAuthProvider,
   updatePassword,
 } from "firebase/auth";
-
+import { FaCamera } from "react-icons/fa";
 export default function UserProfile({ user, nameSignUp }) {
   const { userDetail } = useContext(UserContext);
+  console.log(userDetail);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -63,15 +64,6 @@ export default function UserProfile({ user, nameSignUp }) {
     setPassWordChanger((prev) => ({ ...prev, [name]: value }));
   };
 
-  //   const user = firebase.auth().currentUser;
-  // const newPassword = getASecureRandomPassword();
-  // user.updatePassword(newPassword).then(() => {
-  //     // Update successful.
-  // }).catch((error) => {
-  //     // An error occurred
-  //     // ...
-  // });
-
   const handlePasswordChanger = (e) => {
     e.preventDefault();
     const userAuth = auth.currentUser;
@@ -95,14 +87,13 @@ export default function UserProfile({ user, nameSignUp }) {
         toast.error(error);
       });
   };
-  console.log(auth.currentUser);
-  console.log(nameSignUp);
+  console.log(auth?.currentUser);
   return (
     <div
       className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
      rounded md:w-[350px] md:h-[320px] md:right-8 md:mx-0 md:top-20"
     >
-      <div className={`first ${openPasswordInput ? "hidden" : "block"}`}>
+      {/* <div className={`first ${openPasswordInput ? "hidden" : "block"}`}>
         {" "}
         <div
           className="text-white w-[330px] h-[125px] bg-white rounded max-w-full shadow-[2px_2px_2px_2px]
@@ -117,7 +108,7 @@ export default function UserProfile({ user, nameSignUp }) {
               />
             </div>
             <div className="name text-black font-semibold text-[16px]">
-              {user?.user?.displayName || (nameSignUp && nameSignUp?.name)}
+              {user?.user?.displayName || nameSignUp?.name}
             </div>
           </div>
           <div className="profile text-black flex items-center gap-1 justify-center bg-gray-300 w-[90%] mt-3 mx-4 py-1 rounded cursor-pointer">
@@ -207,6 +198,17 @@ export default function UserProfile({ user, nameSignUp }) {
             Change Password
           </button>
         </form>
+      </div> */}
+
+      <div className="third">
+        <div className="image flex justify-center relative ">
+          <img
+            src={`${user?.user?.photoURL || "images/cartoon.jpeg"}`}
+            alt=""
+            className="rounded-full w-[100px]"
+          />
+          <FaCamera className="absolute bottom-0 right-[135px]" />
+        </div>
       </div>
       <ToastContainer transition={Bounce} />
     </div>
