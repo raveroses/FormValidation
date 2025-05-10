@@ -210,6 +210,22 @@ export default function UserProfile({ user, nameSignUp }) {
           <FaCamera className="absolute bottom-0 right-[135px]" />
         </div>
       </div>
+
+      <div className="userDetailDiv my-[10px] flex text-center gap-[4px] flex-col">
+        <div className="name">
+          <h1 className="font-semibold">Profile Username</h1>
+          <p className="text-20px">Odekunle Waris</p>
+        </div>
+
+        <div className="number">
+          <h1 className="font-semibold">Phone number</h1>
+          <p className="text-20px">090i24986450</p>
+        </div>
+        <div className="email">
+          <h1 className="font-semibold">Email</h1>
+          <p className="text-20px">odekunlewaris@gmail.com</p>
+        </div>
+      </div>
       <ToastContainer transition={Bounce} />
     </div>
   );
