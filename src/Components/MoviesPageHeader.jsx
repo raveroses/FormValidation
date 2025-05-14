@@ -2,15 +2,13 @@ import { FaSearch } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import { RxCaretDown } from "react-icons/rx";
 import useLocalStorage from "../api/useLocalStorage";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import UserContext from "../Context.jsx/UserContext";
+import UserProfile from "./UserProfile";
 
-export default function MoviePageHeader({
-  user,
-  nameSignUp,
-  previewUrl,
-  loading,
-  handleOpenUserDetail,
-}) {
+export default function MoviePageHeader() {
+  const { user, nameSignUp, previewUrl, loading, handleOpenUserDetail } =
+    useContext(UserContext);
   const navigate = useNavigate();
   const [storeValue, setLocalStorages] = useLocalStorage("save", user);
 
@@ -31,7 +29,7 @@ export default function MoviePageHeader({
         onClick={handleNavigate}
       >
         <img
-          src="images/axionis.jpg"
+          src="/images/axionis.jpg"
           alt="logo"
           className="w-[40px] rounded-full"
         />
@@ -57,6 +55,7 @@ export default function MoviePageHeader({
           </div>
         </div>
       </div>
+      <UserProfile />
     </header>
   );
 }

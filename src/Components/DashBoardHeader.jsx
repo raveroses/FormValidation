@@ -1,5 +1,5 @@
 // import SwiperPlace from "./SwiperPlace";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useFetch from "../api/useFetch";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,8 +13,18 @@ import { FaPlay } from "react-icons/fa";
 import { GoVideo } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import UserProfile from "./UserProfile";
-import { toast } from "react-toastify";
-export default function DashboardHeader({ user, nameSignUp }) {
+import UserContext from "../Context.jsx/UserContext";
+export default function DashboardHeader() {
+  const {
+    user,
+    nameSignUp,
+    inputRef,
+    previewUrl,
+    loading,
+    ImageUploader,
+    openUserDetail,
+    handleOpenUserDetail,
+  } = useContext(UserContext);
   const { dataSetter, fetchMovie } = useFetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=b23cab54b01ec0634aae0d6fc905411b"
   );
@@ -110,56 +120,6 @@ export default function DashboardHeader({ user, nameSignUp }) {
     check;
   }, []);
 
-  const inputRef = useRef(null);
-  const [previewUrl, setPreviewUrl] = useState(() => {
-    try {
-      const userImageSaver = localStorage.getItem("userImage");
-      return userImageSaver ? JSON.parse(userImageSaver) : "";
-    } catch (e) {
-      localStorage.removeItem("userImage");
-      return "";
-    }
-  });
-  const [loading, setLoading] = useState(false);
-  const ImageUploader = async () => {
-    console.log("clicked");
-    const file = inputRef.current?.files?.[0];
-    console.log(file);
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("api_key", 611141645977692);
-      formData.append("upload_preset", "profile");
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/diptafc1s/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-        setPreviewUrl(() => {
-          const userImageSaver = data.secure_url;
-          localStorage.setItem("userImage", JSON.stringify(userImageSaver));
-          return userImageSaver;
-        });
-        toast.success("Image Uploaded successfully");
-      } catch (e) {
-        toast.error("Image Uploaded failed");
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
-  const [openUserDetail, setOpenUserDetail] = useState(false);
-
-  const handleOpenUserDetail = () => {
-    setOpenUserDetail((prev) => !prev);
-  };
-  // console.log(search);
   return (
     <div>
       <Swiper
@@ -179,14 +139,6 @@ export default function DashboardHeader({ user, nameSignUp }) {
           previewUrl={previewUrl}
           loading={loading}
           handleOpenUserDetail={handleOpenUserDetail}
-        />
-        <UserProfile
-          user={user}
-          nameSignUp={nameSignUp}
-          inputRef={inputRef}
-          previewUrl={previewUrl}
-          loading={loading}
-          ImageUploader={ImageUploader}
           openUserDetail={openUserDetail}
         />
       </Swiper>

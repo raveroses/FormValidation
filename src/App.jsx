@@ -12,7 +12,7 @@ import SignUp from "./Page.jsx/SignUp";
 import Dashboard from "./Page.jsx/Dashboard";
 import FacebookSign from "./Components/FirebaseConfig/Facebook";
 import Login from "./Page.jsx/Login";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from "./Context.jsx/UserContext";
@@ -285,6 +285,60 @@ function App() {
   }, [userDetail.password, userDetail.profileName]);
   console.log(nameSignUp);
 
+  // IMPORTED FROM DASHBOARD HEADER
+
+  const inputRef = useRef(null);
+  const [previewUrl, setPreviewUrl] = useState(() => {
+    try {
+      const userImageSaver = localStorage.getItem("userImage");
+      return userImageSaver ? JSON.parse(userImageSaver) : "";
+    } catch (e) {
+      localStorage.removeItem("userImage");
+      return "";
+    }
+  });
+  const [loading, setLoading] = useState(false);
+  const ImageUploader = async () => {
+    console.log("clicked");
+    const file = inputRef.current?.files?.[0];
+    console.log(file);
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("api_key", 611141645977692);
+      formData.append("upload_preset", "profile");
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/diptafc1s/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setPreviewUrl(() => {
+          const userImageSaver = data.secure_url;
+          localStorage.setItem("userImage", JSON.stringify(userImageSaver));
+          return userImageSaver;
+        });
+        toast.success("Image Uploaded successfully");
+      } catch (e) {
+        toast.error("Image Uploaded failed");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const [openUserDetail, setOpenUserDetail] = useState(false);
+
+  const handleOpenUserDetail = () => {
+    setOpenUserDetail((prev) => !prev);
+  };
+  console.log(openUserDetail);
+
+  // ENDING OF DASHBOARDHEADER
   return (
     <UserContext.Provider
       value={{
@@ -309,6 +363,12 @@ function App() {
         handleInput,
         user,
         nameSignUp,
+        inputRef,
+        previewUrl,
+        loading,
+        ImageUploader,
+        openUserDetail,
+        handleOpenUserDetail,
       }}
     >
       <Routes>

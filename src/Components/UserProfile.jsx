@@ -7,7 +7,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import {
@@ -16,16 +16,17 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { FaCamera } from "react-icons/fa";
-import axios from "axios";
-export default function UserProfile({
-  user,
-  nameSignUp,
-  inputRef,
-  previewUrl,
-  loading,
-  ImageUploader,
-  openUserDetail,
-}) {
+export default function UserProfile() {
+  const {
+    user,
+    nameSignUp,
+    inputRef,
+    previewUrl,
+    loading,
+    ImageUploader,
+    openUserDetail,
+  } = useContext(UserContext);
+  console.log(user);
   const { userDetail } = useContext(UserContext);
   // console.log(userDetail);
   const navigate = useNavigate();
@@ -259,16 +260,23 @@ export default function UserProfile({
         <div className="userDetailDiv my-[10px] flex text-center gap-[4px] flex-col pb-[30px]">
           <div className="name">
             <h1 className="font-semibold">Profile Username</h1>
-            <p className="text-20px">{userDetail?.profileName}</p>
+            <p className="text-20px">
+              {user?.user?.displayName || userDetail?.profileName}
+            </p>
           </div>
 
           <div className="number">
             <h1 className="font-semibold">Phone number</h1>
-            <p className="text-20px">{userDetail?.phoneNumber}</p>
+            <p className="text-20px">
+              {userDetail?.phoneNumber ||
+                (!user?.user?.phoneNumber && "Number not Available")}
+            </p>
           </div>
           <div className="email">
             <h1 className="font-semibold">Email</h1>
-            <p className="text-20px">{userDetail?.email}</p>
+            <p className="text-20px">
+              {user?.user?.email || userDetail?.email}
+            </p>
           </div>
         </div>
       </div>
