@@ -7,7 +7,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../Context.jsx/UserContext";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import {
@@ -16,9 +16,18 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { FaCamera } from "react-icons/fa";
-export default function UserProfile({ user, nameSignUp }) {
+import axios from "axios";
+export default function UserProfile({
+  user,
+  nameSignUp,
+  inputRef,
+  previewUrl,
+  loading,
+  ImageUploader,
+  openUserDetail,
+}) {
   const { userDetail } = useContext(UserContext);
-  console.log(userDetail);
+  // console.log(userDetail);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -87,13 +96,28 @@ export default function UserProfile({ user, nameSignUp }) {
         toast.error(error);
       });
   };
-  console.log(auth?.currentUser);
+  // console.log(auth?.currentUser);
+
+  const handleOptionalImageInput = () => {
+    inputRef.current?.click();
+  };
+
+  const [viewPageBoo, setViewPageBoo] = useState(false);
+  const handleViewProfile = () => {
+    setViewPageBoo((prev) => !prev);
+  };
   return (
     <div
-      className="bg-white w-[370px] h-[310px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
-     rounded md:w-[350px] md:h-[320px] md:right-8 md:mx-0 md:top-20"
+      className={`bg-white w-[370px] h-[350px] mx-auto absolute top-25 right-0 z-30 px-3 py-3 max-w-full
+     rounded md:w-[350px] md:h-[340px] md:right-8 md:mx-0 md:top-20 ${
+       openUserDetail ? "block" : "hidden"
+     }`}
     >
-      {/* <div className={`first ${openPasswordInput ? "hidden" : "block"}`}>
+      <div
+        className={`first ${
+          openPasswordInput || viewPageBoo ? "hidden" : "block"
+        }`}
+      >
         {" "}
         <div
           className="text-white w-[330px] h-[125px] bg-white rounded max-w-full shadow-[2px_2px_2px_2px]
@@ -102,7 +126,9 @@ export default function UserProfile({ user, nameSignUp }) {
           <div className="flex items-center gap-3 border-b-1 border-black pb-1">
             <div className="image">
               <img
-                src={`${user?.user?.photoURL || "images/cartoon.jpeg"}`}
+                src={`${
+                  user?.user?.photoURL || previewUrl || "images/cartoon.jpeg"
+                }`}
                 alt="profile-image"
                 className="rounded-full w-[50px]"
               />
@@ -111,7 +137,11 @@ export default function UserProfile({ user, nameSignUp }) {
               {user?.user?.displayName || nameSignUp?.name}
             </div>
           </div>
-          <div className="profile text-black flex items-center gap-1 justify-center bg-gray-300 w-[90%] mt-3 mx-4 py-1 rounded cursor-pointer">
+          <div
+            className="profile text-black flex items-center gap-1 justify-center bg-gray-300 w-[90%]
+           mt-3 mx-4 py-1 rounded cursor-pointer"
+            onClick={handleViewProfile}
+          >
             <IoMdContact className="text-[20px]" />
             <h4 className="font-semibold text-[15px]">View Profile</h4>
           </div>
@@ -198,32 +228,48 @@ export default function UserProfile({ user, nameSignUp }) {
             Change Password
           </button>
         </form>
-      </div> */}
-
-      <div className="third">
-        <div className="image flex justify-center relative ">
-          <img
-            src={`${user?.user?.photoURL || "images/cartoon.jpeg"}`}
-            alt=""
-            className="rounded-full w-[100px]"
-          />
-          <FaCamera className="absolute bottom-0 right-[135px]" />
-        </div>
       </div>
 
-      <div className="userDetailDiv my-[10px] flex text-center gap-[4px] flex-col">
-        <div className="name">
-          <h1 className="font-semibold">Profile Username</h1>
-          <p className="text-20px">Odekunle Waris</p>
+      <div className={`third ${viewPageBoo ? "block" : "hidden"}`}>
+        <div className="image flex justify-center relative ">
+          <img
+            src={`${
+              user?.user?.photoURL || previewUrl || "images/cartoon.jpeg"
+            }`}
+            alt=""
+            className="rounded-full w-[150px] h-[150px] object-center object-cover"
+          />
+          <FaCamera
+            className="absolute bottom-0 right-[135px]"
+            onClick={handleOptionalImageInput}
+          />
         </div>
 
-        <div className="number">
-          <h1 className="font-semibold">Phone number</h1>
-          <p className="text-20px">090i24986450</p>
-        </div>
-        <div className="email">
-          <h1 className="font-semibold">Email</h1>
-          <p className="text-20px">odekunlewaris@gmail.com</p>
+        <form className="image">
+          <input
+            id=" ImageInput"
+            type="file"
+            ref={inputRef}
+            accept="image/*"
+            onChange={ImageUploader}
+            // className="hidden"
+            hidden
+          />
+        </form>
+        <div className="userDetailDiv my-[10px] flex text-center gap-[4px] flex-col pb-[30px]">
+          <div className="name">
+            <h1 className="font-semibold">Profile Username</h1>
+            <p className="text-20px">{userDetail?.profileName}</p>
+          </div>
+
+          <div className="number">
+            <h1 className="font-semibold">Phone number</h1>
+            <p className="text-20px">{userDetail?.phoneNumber}</p>
+          </div>
+          <div className="email">
+            <h1 className="font-semibold">Email</h1>
+            <p className="text-20px">{userDetail?.email}</p>
+          </div>
         </div>
       </div>
       <ToastContainer transition={Bounce} />

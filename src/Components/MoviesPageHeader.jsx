@@ -4,7 +4,13 @@ import { RxCaretDown } from "react-icons/rx";
 import useLocalStorage from "../api/useLocalStorage";
 import { useEffect } from "react";
 
-export default function MoviePageHeader({ user, nameSignUp }) {
+export default function MoviePageHeader({
+  user,
+  nameSignUp,
+  previewUrl,
+  loading,
+  handleOpenUserDetail,
+}) {
   const navigate = useNavigate();
   const [storeValue, setLocalStorages] = useLocalStorage("save", user);
 
@@ -38,11 +44,13 @@ export default function MoviePageHeader({ user, nameSignUp }) {
             <FaSearch className="text-[15px]" />
           </div>
         </NavLink>
-        <div className="relative">
+        <div className="relative" onClick={handleOpenUserDetail}>
           <img
-            src={`${storeValue?.user?.photoURL || "images/cartoon.jpeg"}`}
+            src={`${
+              storeValue?.user?.photoURL || previewUrl || "images/cartoon.jpeg"
+            }`}
             alt="user-image"
-            className="w-[45px] rounded-full ml-0 md:ml-7 md:w-[50px]"
+            className="w-[55px] h-[50px] rounded-full ml-0 md:ml-7 md:w-[50px] object-center object-cover"
           />
           <div className="text-lg absolute bottom-0 right-0 bg-gray-300 rounded-full text-center">
             <RxCaretDown className="font-bold text-red-400" />
