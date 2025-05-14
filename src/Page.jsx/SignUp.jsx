@@ -98,7 +98,7 @@ export default function SignUp() {
           value={userDetail?.email}
           onChange={onChange}
         />
-        <div className="w-full flex justify-start gap-[280px] items-center md:justify-start md:gap-[360px] ">
+        <div className="w-[90%] md:w-full flex justify-between items-center md:justify-start md:gap-[360px] ">
           <label
             htmlFor="password"
             className="mb-1 text-semi-bold text-gray-600"
