@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "../Context.jsx/UserContext";
+export default function Body({ FacebookSign }) {
+  const context = useContext(UserContext);
+  if (!context) return;
 
-export default function Body({ googleSignUp, FacebookSign }) {
+  const { googleSignUp } = context;
   return (
     <div className="w-full gap-20 p-10 md:m-auto md:mt-[10px] md:flex">
       <div className="md:w-[45%] md:p-25 ">

@@ -66,6 +66,7 @@ function App() {
   });
   // console.log(user);
   const googleSignUp = async () => {
+    console.log("im clicked");
     try {
       const signn = await signInWithPopup(auth, provider);
       const user = signn.user;
@@ -78,7 +79,7 @@ function App() {
     } catch (error) {
       localStorage.removeItem("userDETAILS");
       toast.error(error.message);
-      return {};
+      return;
     }
   };
 
@@ -366,16 +367,11 @@ function App() {
         ImageUploader,
         openUserDetail,
         handleOpenUserDetail,
+        googleSignUp,
       }}
     >
       <Routes>
-        <Route
-          path="/"
-          index
-          element={
-            <First GoogleSignUp={googleSignUp} FacebookSign={FacebookSign} />
-          }
-        />
+        <Route path="/" index element={<First FacebookSign={FacebookSign} />} />
         <Route path="/signUp" element={<SignUp />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
