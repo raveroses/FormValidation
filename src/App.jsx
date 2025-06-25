@@ -65,7 +65,7 @@ function App() {
         };
   });
   // console.log(user);
-  const GoogleSignUp = async () => {
+  const googleSignUp = async () => {
     try {
       const signn = await signInWithPopup(auth, provider);
       const user = signn.user;
@@ -373,7 +373,7 @@ function App() {
           path="/"
           index
           element={
-            <First GoogleSignUp={GoogleSignUp} FacebookSign={FacebookSign} />
+            <First GoogleSignUp={googleSignUp} FacebookSign={FacebookSign} />
           }
         />
         <Route path="/signUp" element={<SignUp />} />
