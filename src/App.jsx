@@ -21,7 +21,6 @@ import MovieTrailer from "./Page.jsx/MovieTrailer";
 import MovieSearchPage from "./Page.jsx/MovieSearchPage";
 function App() {
   const provider = new GoogleAuthProvider();
-  provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
   const navigate = useNavigate();
   // NAME SIGN UP save
@@ -69,8 +68,6 @@ function App() {
   const GoogleSignUp = async () => {
     try {
       const signn = await signInWithPopup(auth, provider);
-      const credential = GoogleAuthProvider.credentialFromResult(signn);
-      const token = credential.accessToken;
       const user = signn.user;
       navigate("/dashboard");
       setUser((prev) => {
