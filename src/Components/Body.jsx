@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import UserContext from "../Context.jsx/UserContext";
-export default function Body({ FacebookSign }) {
+export default function Body() {
   const context = useContext(UserContext);
   if (!context) return;
 
@@ -27,10 +27,7 @@ export default function Body({ FacebookSign }) {
           <img src="/images/google.png" alt="" className="w-[25px] " />{" "}
           <p className="text-semi-bold">Continue with Google</p>
         </div>
-        <div
-          className="flex gap-4 justify-center border-1 rounded-2xl p-1 mt-3 cursor-pointer"
-          onClick={FacebookSign}
-        >
+        <div className="flex gap-4 justify-center border-1 rounded-2xl p-1 mt-3 cursor-pointer">
           <img src="/images/FACEBOOK.png" alt="" className="w-[25px] " />{" "}
           <p className="text-semi-bold pl-4">Continue with Facebook</p>
         </div>

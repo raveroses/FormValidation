@@ -10,7 +10,6 @@ import {
 import auth from "./Components/FirebaseConfig/FirebaseConfig";
 import SignUp from "./Page.jsx/SignUp";
 import Dashboard from "./Page.jsx/Dashboard";
-import FacebookSign from "./Components/FirebaseConfig/Facebook";
 import Login from "./Page.jsx/Login";
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
@@ -64,7 +63,7 @@ function App() {
           year: "",
         };
   });
-  // console.log(user);
+
   const googleSignUp = async () => {
     console.log("im clicked");
     try {
@@ -371,7 +370,7 @@ function App() {
       }}
     >
       <Routes>
-        <Route path="/" index element={<First FacebookSign={FacebookSign} />} />
+        <Route path="/" index element={<First />} />
         <Route path="/signUp" element={<SignUp />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
